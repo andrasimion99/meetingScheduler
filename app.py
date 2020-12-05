@@ -82,9 +82,30 @@ class App:
 
         self.select_day = Button(self.root, text='Select day', style='W.TButton', command=self.show_calendar)
         self.select_day.pack(pady=10)
-
+        self.selected_day = None
         self.select_time = Button(self.root, text='Select time', style='W.TButton', command=self.show_hour_picker)
         self.select_time.pack(pady=10)
+        self.selected_time = None
+
+        self.back = Button(self.root, text="Back", style='W.TButton', command=self.hide_schedule_meeting)
+        self.save = Button(self.root, text="Save", style='W.TButton', command=self.save_schedule)
+        self.back.pack(side="left", expand=True)
+        self.save.pack(side="right", expand=True)
+
+    def hide_schedule_meeting(self):
+        self.select_day.pack_forget()
+        self.select_time.pack_forget()
+        if self.selected_day:
+            self.selected_day.pack_forget()
+        if self.selected_time:
+            self.selected_time.pack_forget()
+        self.back.pack_forget()
+        self.save.pack_forget()
+        self.show_main_page()
+
+    def save_schedule(self):
+        print(self.meeting_day, self.hour_meeting, self.min_meeting)
+        self.hide_schedule_meeting()
 
     def show_calendar(self):
         self.calendar_window = Toplevel(self.root)
@@ -96,8 +117,9 @@ class App:
 
     def get_date(self):
         self.meeting_day = self.calendar.selection_get()
-        Label(self.root, text=self.meeting_day, font="Lato 14").pack()
-        print(self.meeting_day)
+        self.selected_day = Label(self.root, text=self.meeting_day, font="Lato 14")
+        self.selected_day.pack()
+        # print(self.meeting_day)
         self.calendar_window.withdraw()
 
     def show_hour_picker(self):
@@ -130,16 +152,16 @@ class App:
                               foreground='red', wraplength='150', justify='center')
         hour = self.hour.get()
         min = self.min.get()
-        if hour == '' or min == '':
+        if hour == '' or min == '' or len(hour) != 2 or len(min) != 2:
             time_no_valid.pack(pady=20)
         else:
             hour = int(hour)
             min = int(min)
             if 24 > hour >= 0 and 0 <= min < 60:
-                # self.time_no_valid.pack_forget()
                 self.hour_meeting = self.hour.get()
                 self.min_meeting = self.min.get()
-                Label(self.root, text=self.hour_meeting + ':' + self.min_meeting, font="Lato 14").pack()
+                self.selected_time = Label(self.root, text=self.hour_meeting + ':' + self.min_meeting, font="Lato 14")
+                self.selected_time.pack()
                 self.hour_window.withdraw()
             else:
                 time_no_valid.pack(pady=20)
