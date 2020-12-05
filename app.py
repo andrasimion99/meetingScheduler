@@ -17,10 +17,13 @@ class App:
 
         self.create_styles()
 
+        image = Image.open("bg.jpg")
+        image = image.resize((500, 700), Image.ANTIALIAS)
+        image = ImageTk.PhotoImage(image)
+        background_label = Label(self.root, image=image)
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
         title = Label(self.root, text=self.name, style='W.TLabel')
-        title.pack(pady=40)
-
-        # image = PhotoImage(file='rsz_5895d2d1cba9841eabab6077.png')
+        title.pack(pady=50)
         self.show_main_page()
 
         self.root.mainloop()
@@ -102,15 +105,53 @@ class App:
         self.hour_meeting_end = None
         self.min_meeting_end = None
 
+        self.select_participants = Button(self.root, text='Add participants', style='W.TButton',
+                                          command=lambda: self.add_participants())
+        self.select_participants.pack(pady=10)
+        self.list_participants = None
+
         self.back = Button(self.root, text="Back", style='W.TButton', command=self.hide_schedule_meeting)
         self.save = Button(self.root, text="Save", style='W.TButton', command=self.save_schedule)
         self.back.pack(side="left", expand=True)
         self.save.pack(side="right", expand=True)
 
+    def add_participants(self):
+        self.add_participants_window = Toplevel(self.root)
+        self.add_participants_window.geometry("400x700")
+        Label(self.add_participants_window, text="List of Participants", font="Lato 14", justify=CENTER).pack(pady=20)
+        self.list_box = Listbox(self.add_participants_window, width="100", font="Lato 14", fg="#bb99ff")
+        self.list_box.pack(pady=15)
+
+        Label(self.add_participants_window, text="Name Surname:", font="Lato 14", justify=CENTER).pack(pady=10)
+        participant = Entry(self.add_participants_window, width='35', font=('Lato', 12, 'normal'), justify=CENTER)
+        participant.insert(0, 'NAME SURNAME participant')
+        participant.pack(pady=20)
+        add_person = Button(self.add_participants_window, text="Add", style='W.TButton',
+                            command=lambda: self.select_participant(participant.get()))
+        add_person.pack(pady=10)
+        delete_person = Button(self.add_participants_window, text="Delete", style='W.TButton',
+                               command=lambda: self.delete_participant())
+        delete_person.pack(pady=10)
+        save_list_participants = Button(self.add_participants_window, text="Save", style='W.TButton',
+                                        command=lambda: self.save_participants())
+        save_list_participants.pack(pady=10)
+
+    def select_participant(self, participant_name):
+        self.list_box.insert(END, participant_name)
+
+    def delete_participant(self):
+        self.list_box.delete(ANCHOR)
+
+    def save_participants(self):
+        list_participants = self.list_box.get(0, self.list_box.size() - 1)
+        self.list_participants = [participant.split(" ") for participant in list_participants]
+        self.add_participants_window.withdraw()
+
     def hide_schedule_meeting(self):
         self.select_day.pack_forget()
         self.select_time_start.pack_forget()
         self.select_time_end.pack_forget()
+        self.select_participants.pack_forget()
         if self.selected_day:
             self.selected_day.pack_forget()
         if self.selected_time_start:
@@ -129,6 +170,8 @@ class App:
             print(self.hour_meeting_start + ":" + self.min_meeting_start)
         if self.hour_meeting_end and self.min_meeting_end:
             print(self.hour_meeting_end + ":" + self.min_meeting_end)
+        if self.list_participants:
+            print(self.list_participants)
         self.hide_schedule_meeting()
 
     def show_calendar(self):
