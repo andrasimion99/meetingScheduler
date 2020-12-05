@@ -12,7 +12,7 @@ class App:
 
     def start(self):
         self.root = Tk()
-        self.root.geometry("500x500")
+        self.root.geometry("500x700")
         self.root.title(self.name)
 
         self.create_styles()
@@ -30,6 +30,7 @@ class App:
         self.add_meeting_button.pack_forget()
         self.show_meetings_button.pack_forget()
         self.export_button.pack_forget()
+        self.exit.pack_forget()
 
     def show_main_page(self):
         self.add_person_button = Button(self.root, text="Add person", style='W.TButton', command=self.add_person_window)
@@ -37,11 +38,13 @@ class App:
                                          command=self.schedule_meeting)
         self.show_meetings_button = Button(self.root, text="Display meetings", style='W.TButton', command=self.callback)
         self.export_button = Button(self.root, text="Export calendar", style='W.TButton', command=self.callback)
+        self.exit = Button(self.root, text="Exit", style='W.TButton', command=self.exit)
 
         self.add_person_button.pack(pady=20)
         self.add_meeting_button.pack(pady=20)
         self.show_meetings_button.pack(pady=20)
         self.export_button.pack(pady=20)
+        self.exit.pack(pady=20)
         print(1)
 
     def add_person_window(self):
@@ -83,9 +86,21 @@ class App:
         self.select_day = Button(self.root, text='Select day', style='W.TButton', command=self.show_calendar)
         self.select_day.pack(pady=10)
         self.selected_day = None
-        self.select_time = Button(self.root, text='Select time', style='W.TButton', command=self.show_hour_picker)
-        self.select_time.pack(pady=10)
-        self.selected_time = None
+        self.meeting_day = None
+
+        self.select_time_start = Button(self.root, text='Select start time', style='W.TButton',
+                                        command=lambda: self.show_hour_picker(True))
+        self.select_time_start.pack(pady=10)
+        self.selected_time_start = None
+        self.hour_meeting_start = None
+        self.min_meeting_start = None
+
+        self.select_time_end = Button(self.root, text='Select end time', style='W.TButton',
+                                      command=lambda: self.show_hour_picker(False))
+        self.select_time_end.pack(pady=10)
+        self.selected_time_end = None
+        self.hour_meeting_end = None
+        self.min_meeting_end = None
 
         self.back = Button(self.root, text="Back", style='W.TButton', command=self.hide_schedule_meeting)
         self.save = Button(self.root, text="Save", style='W.TButton', command=self.save_schedule)
@@ -94,17 +109,26 @@ class App:
 
     def hide_schedule_meeting(self):
         self.select_day.pack_forget()
-        self.select_time.pack_forget()
+        self.select_time_start.pack_forget()
+        self.select_time_end.pack_forget()
         if self.selected_day:
             self.selected_day.pack_forget()
-        if self.selected_time:
-            self.selected_time.pack_forget()
+        if self.selected_time_start:
+            self.selected_time_start.pack_forget()
+        if self.selected_time_end:
+            self.selected_time_end.pack_forget()
         self.back.pack_forget()
         self.save.pack_forget()
         self.show_main_page()
 
     def save_schedule(self):
-        print(self.meeting_day, self.hour_meeting, self.min_meeting)
+        # daca nu exista nu se va salva
+        if self.meeting_day:
+            print(self.meeting_day)
+        if self.hour_meeting_start and self.min_meeting_start:
+            print(self.hour_meeting_start + ":" + self.min_meeting_start)
+        if self.hour_meeting_end and self.min_meeting_end:
+            print(self.hour_meeting_end + ":" + self.min_meeting_end)
         self.hide_schedule_meeting()
 
     def show_calendar(self):
@@ -117,18 +141,20 @@ class App:
 
     def get_date(self):
         self.meeting_day = self.calendar.selection_get()
+        if self.selected_day:
+            self.selected_day.pack_forget()
         self.selected_day = Label(self.root, text=self.meeting_day, font="Lato 14")
         self.selected_day.pack()
         # print(self.meeting_day)
         self.calendar_window.withdraw()
 
-    def show_hour_picker(self):
+    def show_hour_picker(self, is_start_hour):
         self.hour_window = Toplevel(self.root)
         self.hour_window.geometry("200x350")
-        Label(self.hour_window, text="Enter the hour:", font="Lato 14").pack(pady=20)
+        Label(self.hour_window, text="Enter the hour(HH):", font="Lato 14").pack(pady=20)
         self.hour = Entry(self.hour_window, width='10', font=('Lato', 12, 'normal'), justify=CENTER)
         self.hour.pack(pady=10)
-        Label(self.hour_window, text="Enter the minutes:", font="Lato 14").pack(pady=20)
+        Label(self.hour_window, text="Enter the minutes(MM):", font="Lato 14").pack(pady=20)
         self.min = Entry(self.hour_window, width='10', font=('Lato', 12, 'normal'), justify=CENTER)
         self.min.pack(pady=10)
 
@@ -137,7 +163,7 @@ class App:
         self.hour.config(validate="key", validatecommand=(reg, '%P'))
         self.min.config(validate="key", validatecommand=(reg, '%P'))
 
-        Button(self.hour_window, text="OK", command=self.get_hour).pack()
+        Button(self.hour_window, text="OK", command=lambda: self.get_hour(is_start_hour)).pack()
 
     def hour_input(self, input):
         if input.isdigit():
@@ -147,7 +173,7 @@ class App:
         else:
             return False
 
-    def get_hour(self):
+    def get_hour(self, is_start_hour):
         time_no_valid = Label(self.hour_window, text="The time you entered is not valid", font="Lato 12",
                               foreground='red', wraplength='150', justify='center')
         hour = self.hour.get()
@@ -158,16 +184,33 @@ class App:
             hour = int(hour)
             min = int(min)
             if 24 > hour >= 0 and 0 <= min < 60:
-                self.hour_meeting = self.hour.get()
-                self.min_meeting = self.min.get()
-                self.selected_time = Label(self.root, text=self.hour_meeting + ':' + self.min_meeting, font="Lato 14")
-                self.selected_time.pack()
+                if is_start_hour:
+                    if self.selected_time_start:
+                        self.selected_time_start.pack_forget()
+                    self.hour_meeting_start = self.hour.get()
+                    self.min_meeting_start = self.min.get()
+                    self.selected_time_start = Label(self.root,
+                                                     text="Start: " + self.hour_meeting_start + ':' + self.min_meeting_start,
+                                                     font="Lato 14")
+                    self.selected_time_start.pack()
+                else:
+                    if self.selected_time_end:
+                        self.selected_time_end.pack_forget()
+                    self.hour_meeting_end = self.hour.get()
+                    self.min_meeting_end = self.min.get()
+                    self.selected_time_end = Label(self.root,
+                                                   text="End: " + self.hour_meeting_end + ':' + self.min_meeting_end,
+                                                   font="Lato 14")
+                    self.selected_time_end.pack()
                 self.hour_window.withdraw()
             else:
                 time_no_valid.pack(pady=20)
 
     def callback(self):
         print(1)
+
+    def exit(self):
+        self.root.destroy()
 
     def create_styles(self):
         # image = Image.open('rsz_5895d2d1cba9841eabab6077.png')
