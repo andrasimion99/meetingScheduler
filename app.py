@@ -4,11 +4,13 @@ from tkinter.ttk import *
 from PIL import ImageTk, Image
 from tkcalendar import Calendar
 import ics
+import DB_manager
 
 
 class App:
-    def __init__(self):
+    def __init__(self, db):
         self.name = "Meeting Scheduler"
+        self.db = db
 
     def start(self):
         self.root = Tk()
@@ -365,5 +367,8 @@ class App:
 
 
 if __name__ == '__main__':
-    app = App()
+    db = DB_manager.DB_manager()
+    db.connect()
+    # db.create_tables()
+    app = App(db)
     app.start()

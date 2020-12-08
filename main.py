@@ -1,36 +1,3 @@
-# from tkinter import *
-# from tkinter import ttk
-
-# root = Tk()
-# root.geometry("500x450")
-#
-#
-# def callback():
-#     label.config(text='You clicked me!')
-#     val1 = entry1.get()
-#     val2 = entry2.get()
-#     label.config(text=val1)
-#
-#
-# label = Label(root, text='Hello World')
-# # label['text'] = "Another Hello"
-# label.config(font='Times 15', text='Hellllo fro the other woorld', fg='red', wraplength='150', justify='right')
-# label.pack()
-#
-# button1 = Button(root, text='Click me', command=callback)
-# button2 = ttk.Button(root, text='Click Me agaain')
-# button1.pack()
-# button2.pack()
-#
-# entry1 = Entry(root, width='30')
-# entry1.insert(0, 'please enter your name')
-# entry2 = ttk.Entry(root, width='30')
-# entry2.config(show='*')
-# entry1.pack()
-# entry2.pack()
-#
-# root.mainloop()
-
 import psycopg2
 
 conn = psycopg2.connect(database="test", user="postgres", password="1234", host="127.0.0.1", port="4444")
