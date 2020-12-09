@@ -57,7 +57,8 @@ class App:
                                                command=self.show_meetings_window)
             self.export_button = Button(self.root, text="Export calendar", style='W.TButton',
                                         command=self.export_calendar_window)
-            self.import_button = Button(self.root, text="Import calendar", style='W.TButton', command=self.callback)
+            self.import_button = Button(self.root, text="Import calendar", style='W.TButton',
+                                        command=self.import_calendar_window)
             self.exit = Button(self.root, text="Exit", style='W.TButton', command=self.exit)
 
             self.add_person_button.pack(pady=20)
@@ -70,21 +71,46 @@ class App:
             failure_window = Toplevel(self.root)
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
+    def import_calendar_window(self):
+        try:
+            with open('my_calendar.ics', 'r') as my_file:
+                c = ics.Calendar(my_file.read())
+            events = c.events
+            for event in events:
+                day = event.begin.format('YYYY-MM-DD')
+                start = event.begin.format('HH:mm')
+                end = event.end.format('HH:mm')
+                attendees = []
+                for attendee in event.attendees:
+                    attendees.append(attendee.common_name)
+                self.db.insert_meeting(day, start, end, attendees)
+            success_window = Toplevel(self.root)
+            Label(success_window, text="Calendar imported successfully", font="Lato 14", foreground='green',
+                  justify='center').pack(pady=20, padx=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
+
     def export_calendar_window(self):
         try:
             c = ics.Calendar()
-            e = ics.Event()
-            e1 = ics.Event()
-            e.name = "Meeting"
-            e.begin = '2014-01-01 10:00'
-            e.end = '2014-01-01 20:00'
-            e1.name = "Meeting 2"
-            e1.begin = '2014-01-02 10:00'
-            e1.end = '2014-01-02 20:00'
-            c.events.add(e)
-            c.events.add(e1)
-            with open('my.ics', 'w') as my_file:
+            meetings = self.db.get_meetings()
+            for meeting in meetings:
+                e = ics.Event()
+                e.name = "Meeting " + str(meeting[0])
+                e.begin = meeting[1].strftime("%Y-%m-%d") + " " + meeting[2].strftime("%H:%M")
+                e.end = meeting[1].strftime("%Y-%m-%d") + " " + meeting[3].strftime("%H:%M")
+                participants = self.db.get_scheduler_by_meeting(str(meeting[0]))
+                for participant in participants:
+                    # row = self.db.get_person(str(participant[0]))
+                    # e.add_attendee(row[0] + " " + row[1])
+                    e.add_attendee(str(participant[0]))
+                c.events.add(e)
+            with open('my_calendar.ics', 'w') as my_file:
                 my_file.writelines(c)
+            success_window = Toplevel(self.root)
+            Label(success_window, text="Calendar exported successfully", font="Lato 14", foreground='green',
+                  justify='center').pack(pady=20, padx=20)
         except Exception as error:
             failure_window = Toplevel(self.root)
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
