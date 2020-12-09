@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter.ttk import *
+from tkinter import filedialog
 
 from PIL import ImageTk, Image
 from tkcalendar import Calendar
@@ -73,7 +74,10 @@ class App:
 
     def import_calendar_window(self):
         try:
-            with open('my_calendar.ics', 'r') as my_file:
+            self.root.filename = filedialog.askopenfilename(initialdir="/", title="Select a calendar file",
+                                                            filetypes=(("ics files", "*.ics"), ("ics files", "*.ics")))
+            # print(self.root.filename)
+            with open(self.root.filename, 'r') as my_file:
                 c = ics.Calendar(my_file.read())
             events = c.events
             for event in events:
@@ -291,9 +295,12 @@ class App:
         try:
             self.add_participants_window = Toplevel(self.root)
             self.add_participants_window.geometry("400x700")
+            scrollbar = Scrollbar(self.add_participants_window)
+            scrollbar.pack(side=RIGHT, fill=Y)
             Label(self.add_participants_window, text="List of Participants", font="Lato 14", justify=CENTER).pack(
                 pady=20)
-            self.list_box = Listbox(self.add_participants_window, width="100", font="Lato 14", fg="#bb99ff")
+            self.list_box = Listbox(self.add_participants_window, width="100", font="Lato 14", fg="#bb99ff",
+                                    yscrollcommand=scrollbar.set)
             self.list_box.pack(pady=15)
 
             Label(self.add_participants_window, text="Id participant:", font="Lato 14", justify=CENTER).pack(pady=10)
