@@ -5,6 +5,7 @@ from PIL import ImageTk, Image
 from tkcalendar import Calendar
 import ics
 import DB_manager
+from datetime import datetime
 
 
 class App:
@@ -13,22 +14,26 @@ class App:
         self.db = db
 
     def start(self):
-        self.root = Tk()
-        self.root.geometry("500x800")
-        self.root.title(self.name)
+        try:
+            self.root = Tk()
+            self.root.geometry("500x800")
+            self.root.title(self.name)
 
-        self.create_styles()
+            self.create_styles()
 
-        image = Image.open("bg.jpg")
-        image = image.resize((500, 800), Image.ANTIALIAS)
-        image = ImageTk.PhotoImage(image)
-        background_label = Label(self.root, image=image)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
-        title = Label(self.root, text=self.name, style='W.TLabel')
-        title.pack(pady=50)
-        self.show_main_page()
+            image = Image.open("bg.jpg")
+            image = image.resize((500, 800), Image.ANTIALIAS)
+            image = ImageTk.PhotoImage(image)
+            background_label = Label(self.root, image=image)
+            background_label.place(x=0, y=0, relwidth=1, relheight=1)
+            title = Label(self.root, text=self.name, style='W.TLabel')
+            title.pack(pady=50)
+            self.show_main_page()
 
-        self.root.mainloop()
+            self.root.mainloop()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def hide_main_page(self):
         self.add_person_button.pack_forget()
@@ -119,32 +124,55 @@ class App:
             print(self.hour_meeting_start + ":" + self.min_meeting_start)
         if self.hour_meeting_end and self.min_meeting_end:
             print(self.hour_meeting_end + ":" + self.min_meeting_end)
+        if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end:
+            try:
+                meetings = self.db.get_meetings_by_interval(self.meeting_day,
+                                                            self.hour_meeting_start + ":" + self.min_meeting_start,
+                                                            self.hour_meeting_end + ":" + self.min_meeting_end)
+                print(meetings)
+                if len(meetings) != 0:
+                    self.display_meetings_window = Toplevel(self.root)
+                    self.display_meetings_window.geometry("1000x300")
+                    for i in range(len(meetings)):
+                        entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=1, pady=1, padx=1)
+                        entry.insert(END, "Id: " + str(meetings[i][0]))
+                        entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=2, pady=1, padx=1)
+                        entry.insert(END, meetings[i][1])
+                        entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=3, pady=1, padx=1)
+                        entry.insert(END, "Start time: " + meetings[i][2].strftime("%H:%M:%S"))
+                        entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=4, pady=1, padx=1)
+                        entry.insert(END, "End time: " + meetings[i][3].strftime("%H:%M:%S"))
+                else:
+                    failure_window = Toplevel(self.root)
+                    Label(failure_window, text="No meetings in this interval", font="Lato 14", foreground='red',
+                          justify='center').pack(pady=20)
+            except Exception as error:
+                self.display_meetings_window.withdraw()
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20)
+        else:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text="Error! You haven't set all data!", font="Lato 14", foreground='red',
+                  justify='center').pack(pady=20)
         # self.hide_show_meetings()
-        self.display_meetings_window = Toplevel(self.root)
-        self.display_meetings_window.geometry("1000x400")
-        for i in range(5):
-            entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'), justify=CENTER)
-            entry.grid(row=i + 1, column=1, pady=1, padx=1)
-            entry.insert(END, "Id: " + str(i))
-            entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'), justify=CENTER)
-            entry.grid(row=i + 1, column=2, pady=1, padx=1)
-            entry.insert(END, self.meeting_day)
-            entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'), justify=CENTER)
-            entry.grid(row=i + 1, column=3, pady=1, padx=1)
-            entry.insert(END, "Start time: " + self.hour_meeting_start + ":" + self.min_meeting_start)
-            entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'), justify=CENTER)
-            entry.grid(row=i + 1, column=4, pady=1, padx=1)
-            entry.insert(END, "End time: " + self.hour_meeting_end + ":" + self.min_meeting_end)
 
     def add_person_window(self):
         self.hide_main_page()
 
         self.nume = Entry(self.root, width='50', font=('Lato', 12, 'normal'))
-        self.nume.insert(0, 'Please enter your name!')
+        self.nume.insert(0, 'Please enter your Last Name!')
         self.nume.pack(pady=20)
 
         self.prenume = Entry(self.root, width='50', font=('Lato', 12, 'normal'))
-        self.prenume.insert(0, 'Please enter your Surname!')
+        self.prenume.insert(0, 'Please enter your First Name!')
         self.prenume.pack(pady=20)
 
         self.back = Button(self.root, text="Back", style='W.TButton', command=self.hide_add_person)
@@ -160,8 +188,13 @@ class App:
         self.show_main_page()
 
     def save_person(self):
-        print(self.nume.get())
-        print(self.prenume.get())
+        # print(self.nume.get())
+        # print(self.prenume.get())
+        try:
+            print(self.db.insert_person(self.nume.get(), self.prenume.get()))
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20)
 
         self.nume.pack_forget()
         self.prenume.pack_forget()
@@ -195,6 +228,7 @@ class App:
                                           command=lambda: self.add_participants())
         self.select_participants.pack(pady=10)
         self.list_participants = None
+        self.selected_participants = None
 
         self.back = Button(self.root, text="Back", style='W.TButton', command=self.hide_schedule_meeting)
         self.save = Button(self.root, text="Save", style='W.TButton', command=self.save_schedule)
@@ -208,10 +242,14 @@ class App:
         self.list_box = Listbox(self.add_participants_window, width="100", font="Lato 14", fg="#bb99ff")
         self.list_box.pack(pady=15)
 
-        Label(self.add_participants_window, text="Name Surname:", font="Lato 14", justify=CENTER).pack(pady=10)
+        Label(self.add_participants_window, text="Id participant:", font="Lato 14", justify=CENTER).pack(pady=10)
         participant = Entry(self.add_participants_window, width='35', font=('Lato', 12, 'normal'), justify=CENTER)
-        participant.insert(0, 'NAME SURNAME participant')
         participant.pack(pady=20)
+
+        reg = self.root.register(self.hour_input)
+
+        participant.config(validate="key", validatecommand=(reg, '%P'))
+
         add_person = Button(self.add_participants_window, text="Add", style='W.TButton',
                             command=lambda: self.select_participant(participant.get()))
         add_person.pack(pady=10)
@@ -230,7 +268,13 @@ class App:
 
     def save_participants(self):
         list_participants = self.list_box.get(0, self.list_box.size() - 1)
-        self.list_participants = [participant.split(" ") for participant in list_participants]
+        # self.list_participants = [participant.split(" ") for participant in list_participants]
+        self.list_participants = set(list_participants)
+        if self.selected_participants:
+            self.selected_participants.pack_forget()
+        self.selected_participants = Label(self.root, text="Participants: " + ','.join(self.list_participants),
+                                           font="Lato 14")
+        self.selected_participants.pack()
         self.add_participants_window.withdraw()
 
     def hide_schedule_meeting(self):
@@ -244,27 +288,53 @@ class App:
             self.selected_time_start.pack_forget()
         if self.selected_time_end:
             self.selected_time_end.pack_forget()
+        if self.selected_participants:
+            self.selected_participants.pack_forget()
         self.back.pack_forget()
         self.save.pack_forget()
         self.show_main_page()
 
     def save_schedule(self):
         # daca nu exista nu se va salva
-        if self.meeting_day:
-            print(self.meeting_day)
-        if self.hour_meeting_start and self.min_meeting_start:
-            print(self.hour_meeting_start + ":" + self.min_meeting_start)
-        if self.hour_meeting_end and self.min_meeting_end:
-            print(self.hour_meeting_end + ":" + self.min_meeting_end)
-        if self.list_participants:
-            print(self.list_participants)
-        self.hide_schedule_meeting()
+        # if self.meeting_day:
+        #     print(self.meeting_day)
+        # if self.hour_meeting_start and self.min_meeting_start:
+        #     print(self.hour_meeting_start + ":" + self.min_meeting_start)
+        # if self.hour_meeting_end and self.min_meeting_end:
+        #     print(self.hour_meeting_end + ":" + self.min_meeting_end)
+        # if self.list_participants:
+        #     # print(self.list_participants)
+        #     for id_participant in self.list_participants:
+        #         print(self.db.get_person(id_participant))
+        if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end and self.list_participants:
+            try:
+                print(self.db.insert_meeting(self.meeting_day, self.hour_meeting_start + ":" + self.min_meeting_start,
+                                             self.hour_meeting_end + ":" + self.min_meeting_end,
+                                             self.list_participants))
+                success_window = Toplevel(self.root)
+                Label(success_window, text="Saved successfully", font="Lato 14", foreground='green',
+                      justify='center').pack(
+                    pady=20)
+                self.db.get_scheduler()
+                self.hide_schedule_meeting()
+            except Exception as error:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20)
+        else:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text="Error! Meeting wasn't saved beacause you haven't set all data!", font="Lato 14",
+                  foreground='red',
+                  justify='center').pack(pady=20)
 
     def show_calendar(self):
         self.calendar_window = Toplevel(self.root)
 
-        self.calendar = Calendar(self.calendar_window, font="Lato 12", selectmode='day', cursor="hand1", year=2020,
-                                 month=11, day=5)
+        now = datetime.now()
+        year = int(now.strftime("%Y"))
+        month = int(now.strftime("%m"))
+        day = int(now.strftime("%d"))
+        self.calendar = Calendar(self.calendar_window, font="Lato 12", selectmode='day', cursor="hand1", year=year,
+                                 month=month, day=day)
         self.calendar.pack(fill="both", expand=True)
         Button(self.calendar_window, text="OK", command=self.get_date).pack()
 
@@ -367,8 +437,11 @@ class App:
 
 
 if __name__ == '__main__':
-    db = DB_manager.DB_manager()
-    db.connect()
-    # db.create_tables()
-    app = App(db)
-    app.start()
+    try:
+        db = DB_manager.DB_manager()
+        db.connect()
+        # db.create_tables()
+        app = App(db)
+        app.start()
+    except Exception as error:
+        print(error)
