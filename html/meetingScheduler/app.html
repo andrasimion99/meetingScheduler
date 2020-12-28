@@ -1,0 +1,2579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>meetingScheduler.app API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>meetingScheduler.app</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from tkinter import *
+from tkinter.ttk import *
+from tkinter import filedialog
+
+from PIL import ImageTk, Image
+from tkcalendar import Calendar
+import ics
+import DB_manager
+from datetime import datetime
+
+
+class App:
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+    def __init__(self, db):
+        &#34;&#34;&#34;
+
+        :param db:
+        &#34;&#34;&#34;
+        self.name = &#34;Meeting Scheduler&#34;
+        self.db = db
+
+    def start(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.root = Tk()
+            self.root.geometry(&#34;500x800&#34;)
+            self.root.title(self.name)
+
+            self.create_styles()
+
+            image = Image.open(&#34;bg.jpg&#34;)
+            image = image.resize((500, 800), Image.ANTIALIAS)
+            image = ImageTk.PhotoImage(image)
+            background_label = Label(self.root, image=image)
+            background_label.place(x=0, y=0, relwidth=1, relheight=1)
+            title = Label(self.root, text=self.name, style=&#39;W.TLabel&#39;)
+            title.pack(pady=50)
+            self.show_main_page()
+
+            self.root.mainloop()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_main_page(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.add_person_button.pack_forget()
+            self.add_meeting_button.pack_forget()
+            self.show_meetings_button.pack_forget()
+            self.export_button.pack_forget()
+            self.import_button.pack_forget()
+            self.exit.pack_forget()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_main_page(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.add_person_button = Button(self.root, text=&#34;Add person&#34;, style=&#39;W.TButton&#39;,
+                                            command=self.add_person_window)
+            self.add_meeting_button = Button(self.root, text=&#34;Schedule meeting&#34;, style=&#39;W.TButton&#39;,
+                                             command=self.schedule_meeting)
+            self.show_meetings_button = Button(self.root, text=&#34;Display meetings&#34;, style=&#39;W.TButton&#39;,
+                                               command=self.show_meetings_window)
+            self.export_button = Button(self.root, text=&#34;Export calendar&#34;, style=&#39;W.TButton&#39;,
+                                        command=self.export_calendar_window)
+            self.import_button = Button(self.root, text=&#34;Import calendar&#34;, style=&#39;W.TButton&#39;,
+                                        command=self.import_calendar_window)
+            self.exit = Button(self.root, text=&#34;Exit&#34;, style=&#39;W.TButton&#39;, command=self.exit)
+
+            self.add_person_button.pack(pady=20)
+            self.add_meeting_button.pack(pady=20)
+            self.show_meetings_button.pack(pady=20)
+            self.export_button.pack(pady=20)
+            self.import_button.pack(pady=20)
+            self.exit.pack(pady=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def import_calendar_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            files = [(&#34;ics files&#34;, &#34;*.ics&#34;), (&#34;ical files&#34;, &#34;*.ical&#34;)]
+            file = filedialog.askopenfilename(initialdir=&#34;/&#34;, title=&#34;Select a calendar file&#34;, filetypes=files)
+            with open(file, &#39;r&#39;) as my_file:
+                c = ics.Calendar(my_file.read())
+            events = c.events
+            for event in events:
+                name = event.name
+                day = event.begin.format(&#39;YYYY-MM-DD&#39;)
+                start = event.begin.format(&#39;HH:mm&#39;)
+                end = event.end.format(&#39;HH:mm&#39;)
+                attendees = []
+                for attendee in event.attendees:
+                    attendees.append(attendee.common_name)
+                self.db.insert_meeting(name, day, start, end, attendees)
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;Calendar imported successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def export_calendar_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            c = ics.Calendar()
+            meetings = self.db.get_meetings()
+            for meeting in meetings:
+                e = ics.Event()
+                e.name = str(meeting[1])
+                e.begin = meeting[2].strftime(&#34;%Y-%m-%d&#34;) + &#34; &#34; + meeting[3].strftime(&#34;%H:%M&#34;)
+                e.end = meeting[2].strftime(&#34;%Y-%m-%d&#34;) + &#34; &#34; + meeting[4].strftime(&#34;%H:%M&#34;)
+                participants = self.db.get_scheduler_by_meeting(str(meeting[0]))
+                for participant in participants:
+                    e.add_attendee(str(participant[0]))
+                c.events.add(e)
+            files = [(&#34;ics files&#34;, &#34;*.ics&#34;), (&#34;ical files&#34;, &#34;*.ical&#34;)]
+            file = filedialog.asksaveasfile(initialdir=&#34;/&#34;, title=&#34;Save a calendar file&#34;, filetypes=files,
+                                            defaultextension=files)
+            with open(file.name, &#39;w&#39;) as my_file:
+                my_file.writelines(c)
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;Calendar exported successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_meetings_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hide_main_page()
+
+            self.select_day = Button(self.root, text=&#39;Select day&#39;, style=&#39;W.TButton&#39;, command=self.show_calendar)
+            self.select_day.pack(pady=10)
+            self.selected_day = None
+            self.meeting_day = None
+
+            self.select_time_start = Button(self.root, text=&#39;Select start time&#39;, style=&#39;W.TButton&#39;,
+                                            command=lambda: self.show_hour_picker(True))
+            self.select_time_start.pack(pady=10)
+            self.selected_time_start = None
+            self.hour_meeting_start = None
+            self.min_meeting_start = None
+
+            self.select_time_end = Button(self.root, text=&#39;Select end time&#39;, style=&#39;W.TButton&#39;,
+                                          command=lambda: self.show_hour_picker(False))
+            self.select_time_end.pack(pady=10)
+            self.selected_time_end = None
+            self.hour_meeting_end = None
+            self.min_meeting_end = None
+
+            self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_show_meetings)
+            self.save = Button(self.root, text=&#34;Display&#34;, style=&#39;W.TButton&#39;, command=self.display_meetings)
+            self.back.pack(side=&#34;left&#34;, expand=True)
+            self.save.pack(side=&#34;right&#34;, expand=True)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_show_meetings(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.select_day.pack_forget()
+            self.select_time_start.pack_forget()
+            self.select_time_end.pack_forget()
+            if self.selected_day:
+                self.selected_day.pack_forget()
+            if self.selected_time_start:
+                self.selected_time_start.pack_forget()
+            if self.selected_time_end:
+                self.selected_time_end.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def display_meetings(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end:
+            try:
+                meetings = self.db.get_meetings_by_interval(self.meeting_day,
+                                                            self.hour_meeting_start + &#34;:&#34; + self.min_meeting_start,
+                                                            self.hour_meeting_end + &#34;:&#34; + self.min_meeting_end)
+                if len(meetings) != 0:
+                    self.display_meetings_window = Toplevel(self.root)
+                    self.display_meetings_window.geometry(&#34;1200x300&#34;)
+                    for i in range(len(meetings)):
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=1, pady=1, padx=1)
+                        entry.insert(END, &#34;Name: &#34; + str(meetings[i][0]))
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=2, pady=1, padx=1)
+                        entry.insert(END, meetings[i][1])
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=3, pady=1, padx=1)
+                        entry.insert(END, &#34;Start time: &#34; + meetings[i][2].strftime(&#34;%H:%M:%S&#34;))
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=4, pady=1, padx=1)
+                        entry.insert(END, &#34;End time: &#34; + meetings[i][3].strftime(&#34;%H:%M:%S&#34;))
+                        participants = Button(self.display_meetings_window, text=&#39;See participants&#39;, style=&#39;W.TButton&#39;,
+                                              command=lambda: self.get_participants_from_meeting(meetings[i][4]))
+                        participants.grid(row=i + 1, column=5, pady=1, padx=1)
+                else:
+                    failure_window = Toplevel(self.root)
+                    Label(failure_window, text=&#34;No meetings in this interval&#34;, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;,
+                          justify=&#39;center&#39;).pack(pady=20, padx=20)
+            except Exception as error:
+                self.display_meetings_window.withdraw()
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                           padx=20)
+        else:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=&#34;Error! You haven&#39;t set all data!&#34;, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def get_participants_from_meeting(self, meeting_id):
+        &#34;&#34;&#34;
+
+        :param meeting_id:
+        :return:
+        &#34;&#34;&#34;
+        self.get_participants_from_meeting_window = Toplevel(self.display_meetings_window)
+        self.get_participants_from_meeting_window.geometry(&#34;400x400&#34;)
+        scrollbar = Scrollbar(self.get_participants_from_meeting_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.get_participants_from_meeting_window, text=&#34;List of Participants&#34;, font=&#34;Lato 14&#34;,
+              justify=CENTER).pack(pady=20)
+        self.list_box_participants = Listbox(self.get_participants_from_meeting_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;,
+                                             fg=&#34;#bb99ff&#34;, yscrollcommand=scrollbar.set)
+        self.list_box_participants.pack(pady=15)
+
+        try:
+            all_persons = self.db.get_scheduler_by_meeting(meeting_id)
+            for person in all_persons:
+                self.list_box_participants.insert(END, person[0])
+        except Exception as error:
+            failure_window = Toplevel(self.display_meetings_window)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                       padx=20)
+
+    def add_person_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hide_main_page()
+
+            self.nume = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.nume.insert(0, &#39;Please enter your Last Name!&#39;)
+            self.nume.pack(pady=20)
+
+            self.prenume = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.prenume.insert(0, &#39;Please enter your First Name!&#39;)
+            self.prenume.pack(pady=20)
+
+            self.email = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.email.insert(0, &#39;Please enter your email adress!&#39;)
+            self.email.pack(pady=20)
+
+            self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_add_person)
+            self.save = Button(self.root, text=&#34;Save&#34;, style=&#39;W.TButton&#39;, command=self.save_person)
+            self.back.pack(side=&#34;left&#34;, expand=True)
+            self.save.pack(side=&#34;right&#34;, expand=True)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_add_person(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.email.pack_forget()
+            self.nume.pack_forget()
+            self.prenume.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def save_person(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;Person saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+            self.email.pack_forget()
+            self.nume.pack_forget()
+            self.prenume.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def schedule_meeting(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hide_main_page()
+
+            self.meeting_name = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.meeting_name.insert(0, &#39;Please enter the name of the meeting!&#39;)
+            self.meeting_name.pack(pady=20)
+
+            self.select_day = Button(self.root, text=&#39;Select day&#39;, style=&#39;W.TButton&#39;, command=self.show_calendar)
+            self.select_day.pack(pady=10)
+            self.selected_day = None
+            self.meeting_day = None
+
+            self.select_time_start = Button(self.root, text=&#39;Select start time&#39;, style=&#39;W.TButton&#39;,
+                                            command=lambda: self.show_hour_picker(True))
+            self.select_time_start.pack(pady=10)
+            self.selected_time_start = None
+            self.hour_meeting_start = None
+            self.min_meeting_start = None
+
+            self.select_time_end = Button(self.root, text=&#39;Select end time&#39;, style=&#39;W.TButton&#39;,
+                                          command=lambda: self.show_hour_picker(False))
+            self.select_time_end.pack(pady=10)
+            self.selected_time_end = None
+            self.hour_meeting_end = None
+            self.min_meeting_end = None
+
+            self.select_participants = Button(self.root, text=&#39;Add participants&#39;, style=&#39;W.TButton&#39;,
+                                              command=lambda: self.add_participants())
+            self.select_participants.pack(pady=10)
+            self.list_participants = set()
+
+            self.see_participants = Button(self.root, text=&#39;See participants&#39;, style=&#39;W.TButton&#39;,
+                                           command=lambda: self.show_selected_participants())
+            self.see_participants.pack(pady=10)
+
+            self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_schedule_meeting)
+            self.save = Button(self.root, text=&#34;Save&#34;, style=&#39;W.TButton&#39;, command=self.save_schedule)
+            self.back.pack(side=&#34;left&#34;, expand=True)
+            self.save.pack(side=&#34;right&#34;, expand=True)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def add_participants(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.add_participants_window = Toplevel(self.root)
+            self.add_participants_window.geometry(&#34;400x700&#34;)
+            scrollbar = Scrollbar(self.add_participants_window)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            Label(self.add_participants_window, text=&#34;List of Participants&#34;, font=&#34;Lato 14&#34;, justify=CENTER).pack(
+                pady=20)
+            self.list_box = Listbox(self.add_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;, fg=&#34;#bb99ff&#34;,
+                                    yscrollcommand=scrollbar.set)
+            self.list_box.pack(pady=15)
+
+            self.display_participants_window = Toplevel(self.root)
+            self.display_participants_window.geometry(&#34;400x700&#34;)
+            scrollbar = Scrollbar(self.display_participants_window)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            Label(self.display_participants_window, text=&#34;Select the Participants&#34;, font=&#34;Lato 14&#34;,
+                  justify=CENTER).pack(pady=20)
+            self.list_box_select = Listbox(self.display_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;, fg=&#34;#bb99ff&#34;,
+                                           yscrollcommand=scrollbar.set)
+            self.list_box_select.pack(pady=15)
+
+            try:
+                all_persons = self.db.get_persons()
+                for person in all_persons:
+                    self.list_box_select.insert(END, person[1])
+            except Exception as error:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                           padx=20)
+
+            add_person = Button(self.display_participants_window, text=&#34;Add&#34;, style=&#39;W.TButton&#39;,
+                                command=lambda: self.select_participant(self.list_box_select.get(ACTIVE)))
+            add_person.pack(pady=10)
+            delete_person = Button(self.add_participants_window, text=&#34;Delete&#34;, style=&#39;W.TButton&#39;,
+                                   command=lambda: self.delete_participant())
+            delete_person.pack(pady=10)
+            save_list_participants = Button(self.add_participants_window, text=&#34;Save&#34;, style=&#39;W.TButton&#39;,
+                                            command=lambda: self.save_participants())
+            save_list_participants.pack(pady=10)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_selected_participants(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        self.display_selected_participants_window = Toplevel(self.root)
+        self.display_selected_participants_window.geometry(&#34;400x700&#34;)
+        scrollbar = Scrollbar(self.display_selected_participants_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.display_selected_participants_window, text=&#34;Selected Participants&#34;, font=&#34;Lato 14&#34;,
+              justify=CENTER).pack(pady=20)
+        self.list_box_display = Listbox(self.display_selected_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;,
+                                        fg=&#34;#bb99ff&#34;,
+                                        yscrollcommand=scrollbar.set)
+        self.list_box_display.pack(pady=15)
+
+        try:
+            all_persons = self.list_participants
+            for person in all_persons:
+                self.list_box_display.insert(END, person)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                       padx=20)
+
+    def select_participant(self, participant_name):
+        &#34;&#34;&#34;
+
+        :param participant_name:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.list_box.insert(END, participant_name)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def delete_participant(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.list_box.delete(ANCHOR)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def save_participants(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            list_participants = self.list_box.get(0, self.list_box.size() - 1)
+            # self.list_participants = [participant.split(&#34; &#34;) for participant in list_participants]
+            self.list_participants = set(list_participants)
+            # print(self.list_participants)
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;List of participants saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+            self.add_participants_window.withdraw()
+            self.display_participants_window.withdraw()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_schedule_meeting(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.meeting_name.pack_forget()
+            self.select_day.pack_forget()
+            self.select_time_start.pack_forget()
+            self.select_time_end.pack_forget()
+            self.select_participants.pack_forget()
+            self.see_participants.pack_forget()
+            if self.selected_day:
+                self.selected_day.pack_forget()
+            if self.selected_time_start:
+                self.selected_time_start.pack_forget()
+            if self.selected_time_end:
+                self.selected_time_end.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def save_schedule(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end and self.list_participants:
+            try:
+                self.db.insert_meeting(self.meeting_name.get(), self.meeting_day,
+                                       self.hour_meeting_start + &#34;:&#34; + self.min_meeting_start,
+                                       self.hour_meeting_end + &#34;:&#34; + self.min_meeting_end,
+                                       self.list_participants)
+                success_window = Toplevel(self.root)
+                Label(success_window, text=&#34;Meeting saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                      justify=&#39;center&#39;).pack(pady=20, padx=20)
+                self.db.get_scheduler()
+                self.hide_schedule_meeting()
+            except Exception as error:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                           padx=20)
+        else:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=&#34;Error! Meeting wasn&#39;t saved beacause you haven&#39;t set all data!&#34;, font=&#34;Lato 14&#34;,
+                  foreground=&#39;red&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_calendar(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.calendar_window = Toplevel(self.root)
+
+            now = datetime.now()
+            year = int(now.strftime(&#34;%Y&#34;))
+            month = int(now.strftime(&#34;%m&#34;))
+            day = int(now.strftime(&#34;%d&#34;))
+            self.calendar = Calendar(self.calendar_window, font=&#34;Lato 12&#34;, selectmode=&#39;day&#39;, cursor=&#34;hand1&#34;, year=year,
+                                     month=month, day=day)
+            self.calendar.pack(fill=&#34;both&#34;, expand=True)
+            Button(self.calendar_window, text=&#34;OK&#34;, command=self.get_date).pack()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def get_date(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.meeting_day = self.calendar.selection_get()
+            if self.selected_day:
+                self.selected_day.pack_forget()
+            self.selected_day = Label(self.root, text=self.meeting_day, font=&#34;Lato 14&#34;)
+            self.selected_day.pack()
+            self.calendar_window.withdraw()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_hour_picker(self, is_start_hour):
+        &#34;&#34;&#34;
+
+        :param is_start_hour:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hour_window = Toplevel(self.root)
+            self.hour_window.geometry(&#34;200x350&#34;)
+            Label(self.hour_window, text=&#34;Enter the hour(HH):&#34;, font=&#34;Lato 14&#34;).pack(pady=20)
+            self.hour = Entry(self.hour_window, width=&#39;10&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;), justify=CENTER)
+            self.hour.pack(pady=10)
+            Label(self.hour_window, text=&#34;Enter the minutes(MM):&#34;, font=&#34;Lato 14&#34;).pack(pady=20)
+            self.min = Entry(self.hour_window, width=&#39;10&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;), justify=CENTER)
+            self.min.pack(pady=10)
+
+            reg = self.root.register(self.hour_input)
+
+            self.hour.config(validate=&#34;key&#34;, validatecommand=(reg, &#39;%P&#39;))
+            self.min.config(validate=&#34;key&#34;, validatecommand=(reg, &#39;%P&#39;))
+
+            Button(self.hour_window, text=&#34;OK&#34;, command=lambda: self.get_hour(is_start_hour)).pack()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hour_input(self, input):
+        &#34;&#34;&#34;
+
+        :param input:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            if input.isdigit():
+                return True
+            elif input is &#34;&#34;:
+                return True
+            else:
+                return False
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def get_hour(self, is_start_hour):
+        &#34;&#34;&#34;
+
+        :param is_start_hour:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            time_no_valid = Label(self.hour_window, text=&#34;The time you entered is not valid&#34;, font=&#34;Lato 12&#34;,
+                                  foreground=&#39;red&#39;, wraplength=&#39;150&#39;, justify=&#39;center&#39;)
+            hour = self.hour.get()
+            min = self.min.get()
+            if hour == &#39;&#39; or min == &#39;&#39; or len(hour) != 2 or len(min) != 2:
+                time_no_valid.pack(pady=20)
+            else:
+                hour = int(hour)
+                min = int(min)
+                self.validate_time(hour, min, is_start_hour, time_no_valid)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def validate_time(self, hour, min, is_start_hour, time_no_valid):
+        &#34;&#34;&#34;
+
+        :param hour:
+        :param min:
+        :param is_start_hour:
+        :param time_no_valid:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            if 24 &gt; hour &gt;= 0 and 0 &lt;= min &lt; 60:
+                if is_start_hour:
+                    if self.selected_time_start:
+                        self.selected_time_start.pack_forget()
+                    if self.selected_time_end and (int(self.hour_meeting_end) &lt; hour or (
+                            int(self.hour_meeting_end) == hour and int(self.min_meeting_end) &lt; min)):
+                        time_no_valid.pack(pady=20)
+                    else:
+                        self.hour_meeting_start = self.hour.get()
+                        self.min_meeting_start = self.min.get()
+                        self.selected_time_start = Label(self.root,
+                                                         text=&#34;Start: &#34; + self.hour_meeting_start + &#39;:&#39; + self.min_meeting_start,
+                                                         font=&#34;Lato 14&#34;)
+                        self.selected_time_start.pack()
+                        self.hour_window.withdraw()
+                else:
+                    if self.selected_time_end:
+                        self.selected_time_end.pack_forget()
+                    if self.selected_time_start and (int(self.hour_meeting_start) &gt; hour or (
+                            int(self.hour_meeting_start) == hour and int(self.min_meeting_start) &gt; min)):
+                        time_no_valid.pack(pady=20)
+                    else:
+                        self.hour_meeting_end = self.hour.get()
+                        self.min_meeting_end = self.min.get()
+                        self.selected_time_end = Label(self.root,
+                                                       text=&#34;End: &#34; + self.hour_meeting_end + &#39;:&#39; + self.min_meeting_end,
+                                                       font=&#34;Lato 14&#34;)
+                        self.selected_time_end.pack()
+                        self.hour_window.withdraw()
+
+            else:
+                time_no_valid.pack(pady=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def callback(self):
+        print(1)
+
+    def exit(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.root.destroy()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def create_styles(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            style = Style()
+            style.configure(&#39;W.TButton&#39;, font=(&#39;Lato&#39;, 15, &#39;bold&#39;), background=&#39;#bb99ff&#39;, foreground=&#39;#bb99ff&#39;)
+            style.configure(&#39;W.TButton&#39;, padding=10, borderwidth=0)
+            style.configure(&#39;W.TLabel&#39;, font=(&#39;Lato&#39;, 20, &#39;bold&#39;), foreground=&#39;#bb99ff&#39;, wraplength=&#39;250&#39;,
+                            justify=&#39;center&#39;)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+
+if __name__ == &#39;__main__&#39;:
+    try:
+        db = DB_manager.DB_manager()
+        db.connect()
+        # db.create_tables()
+        app = App(db)
+        app.start()
+    except Exception as error:
+        print(error)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="meetingScheduler.app.App"><code class="flex name class">
+<span>class <span class="ident">App</span></span>
+<span>(</span><span>db)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param db:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class App:
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+    def __init__(self, db):
+        &#34;&#34;&#34;
+
+        :param db:
+        &#34;&#34;&#34;
+        self.name = &#34;Meeting Scheduler&#34;
+        self.db = db
+
+    def start(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.root = Tk()
+            self.root.geometry(&#34;500x800&#34;)
+            self.root.title(self.name)
+
+            self.create_styles()
+
+            image = Image.open(&#34;bg.jpg&#34;)
+            image = image.resize((500, 800), Image.ANTIALIAS)
+            image = ImageTk.PhotoImage(image)
+            background_label = Label(self.root, image=image)
+            background_label.place(x=0, y=0, relwidth=1, relheight=1)
+            title = Label(self.root, text=self.name, style=&#39;W.TLabel&#39;)
+            title.pack(pady=50)
+            self.show_main_page()
+
+            self.root.mainloop()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_main_page(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.add_person_button.pack_forget()
+            self.add_meeting_button.pack_forget()
+            self.show_meetings_button.pack_forget()
+            self.export_button.pack_forget()
+            self.import_button.pack_forget()
+            self.exit.pack_forget()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_main_page(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.add_person_button = Button(self.root, text=&#34;Add person&#34;, style=&#39;W.TButton&#39;,
+                                            command=self.add_person_window)
+            self.add_meeting_button = Button(self.root, text=&#34;Schedule meeting&#34;, style=&#39;W.TButton&#39;,
+                                             command=self.schedule_meeting)
+            self.show_meetings_button = Button(self.root, text=&#34;Display meetings&#34;, style=&#39;W.TButton&#39;,
+                                               command=self.show_meetings_window)
+            self.export_button = Button(self.root, text=&#34;Export calendar&#34;, style=&#39;W.TButton&#39;,
+                                        command=self.export_calendar_window)
+            self.import_button = Button(self.root, text=&#34;Import calendar&#34;, style=&#39;W.TButton&#39;,
+                                        command=self.import_calendar_window)
+            self.exit = Button(self.root, text=&#34;Exit&#34;, style=&#39;W.TButton&#39;, command=self.exit)
+
+            self.add_person_button.pack(pady=20)
+            self.add_meeting_button.pack(pady=20)
+            self.show_meetings_button.pack(pady=20)
+            self.export_button.pack(pady=20)
+            self.import_button.pack(pady=20)
+            self.exit.pack(pady=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def import_calendar_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            files = [(&#34;ics files&#34;, &#34;*.ics&#34;), (&#34;ical files&#34;, &#34;*.ical&#34;)]
+            file = filedialog.askopenfilename(initialdir=&#34;/&#34;, title=&#34;Select a calendar file&#34;, filetypes=files)
+            with open(file, &#39;r&#39;) as my_file:
+                c = ics.Calendar(my_file.read())
+            events = c.events
+            for event in events:
+                name = event.name
+                day = event.begin.format(&#39;YYYY-MM-DD&#39;)
+                start = event.begin.format(&#39;HH:mm&#39;)
+                end = event.end.format(&#39;HH:mm&#39;)
+                attendees = []
+                for attendee in event.attendees:
+                    attendees.append(attendee.common_name)
+                self.db.insert_meeting(name, day, start, end, attendees)
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;Calendar imported successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def export_calendar_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            c = ics.Calendar()
+            meetings = self.db.get_meetings()
+            for meeting in meetings:
+                e = ics.Event()
+                e.name = str(meeting[1])
+                e.begin = meeting[2].strftime(&#34;%Y-%m-%d&#34;) + &#34; &#34; + meeting[3].strftime(&#34;%H:%M&#34;)
+                e.end = meeting[2].strftime(&#34;%Y-%m-%d&#34;) + &#34; &#34; + meeting[4].strftime(&#34;%H:%M&#34;)
+                participants = self.db.get_scheduler_by_meeting(str(meeting[0]))
+                for participant in participants:
+                    e.add_attendee(str(participant[0]))
+                c.events.add(e)
+            files = [(&#34;ics files&#34;, &#34;*.ics&#34;), (&#34;ical files&#34;, &#34;*.ical&#34;)]
+            file = filedialog.asksaveasfile(initialdir=&#34;/&#34;, title=&#34;Save a calendar file&#34;, filetypes=files,
+                                            defaultextension=files)
+            with open(file.name, &#39;w&#39;) as my_file:
+                my_file.writelines(c)
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;Calendar exported successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_meetings_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hide_main_page()
+
+            self.select_day = Button(self.root, text=&#39;Select day&#39;, style=&#39;W.TButton&#39;, command=self.show_calendar)
+            self.select_day.pack(pady=10)
+            self.selected_day = None
+            self.meeting_day = None
+
+            self.select_time_start = Button(self.root, text=&#39;Select start time&#39;, style=&#39;W.TButton&#39;,
+                                            command=lambda: self.show_hour_picker(True))
+            self.select_time_start.pack(pady=10)
+            self.selected_time_start = None
+            self.hour_meeting_start = None
+            self.min_meeting_start = None
+
+            self.select_time_end = Button(self.root, text=&#39;Select end time&#39;, style=&#39;W.TButton&#39;,
+                                          command=lambda: self.show_hour_picker(False))
+            self.select_time_end.pack(pady=10)
+            self.selected_time_end = None
+            self.hour_meeting_end = None
+            self.min_meeting_end = None
+
+            self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_show_meetings)
+            self.save = Button(self.root, text=&#34;Display&#34;, style=&#39;W.TButton&#39;, command=self.display_meetings)
+            self.back.pack(side=&#34;left&#34;, expand=True)
+            self.save.pack(side=&#34;right&#34;, expand=True)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_show_meetings(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.select_day.pack_forget()
+            self.select_time_start.pack_forget()
+            self.select_time_end.pack_forget()
+            if self.selected_day:
+                self.selected_day.pack_forget()
+            if self.selected_time_start:
+                self.selected_time_start.pack_forget()
+            if self.selected_time_end:
+                self.selected_time_end.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def display_meetings(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end:
+            try:
+                meetings = self.db.get_meetings_by_interval(self.meeting_day,
+                                                            self.hour_meeting_start + &#34;:&#34; + self.min_meeting_start,
+                                                            self.hour_meeting_end + &#34;:&#34; + self.min_meeting_end)
+                if len(meetings) != 0:
+                    self.display_meetings_window = Toplevel(self.root)
+                    self.display_meetings_window.geometry(&#34;1200x300&#34;)
+                    for i in range(len(meetings)):
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=1, pady=1, padx=1)
+                        entry.insert(END, &#34;Name: &#34; + str(meetings[i][0]))
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=2, pady=1, padx=1)
+                        entry.insert(END, meetings[i][1])
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=3, pady=1, padx=1)
+                        entry.insert(END, &#34;Start time: &#34; + meetings[i][2].strftime(&#34;%H:%M:%S&#34;))
+                        entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                      justify=CENTER)
+                        entry.grid(row=i + 1, column=4, pady=1, padx=1)
+                        entry.insert(END, &#34;End time: &#34; + meetings[i][3].strftime(&#34;%H:%M:%S&#34;))
+                        participants = Button(self.display_meetings_window, text=&#39;See participants&#39;, style=&#39;W.TButton&#39;,
+                                              command=lambda: self.get_participants_from_meeting(meetings[i][4]))
+                        participants.grid(row=i + 1, column=5, pady=1, padx=1)
+                else:
+                    failure_window = Toplevel(self.root)
+                    Label(failure_window, text=&#34;No meetings in this interval&#34;, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;,
+                          justify=&#39;center&#39;).pack(pady=20, padx=20)
+            except Exception as error:
+                self.display_meetings_window.withdraw()
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                           padx=20)
+        else:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=&#34;Error! You haven&#39;t set all data!&#34;, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def get_participants_from_meeting(self, meeting_id):
+        &#34;&#34;&#34;
+
+        :param meeting_id:
+        :return:
+        &#34;&#34;&#34;
+        self.get_participants_from_meeting_window = Toplevel(self.display_meetings_window)
+        self.get_participants_from_meeting_window.geometry(&#34;400x400&#34;)
+        scrollbar = Scrollbar(self.get_participants_from_meeting_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.get_participants_from_meeting_window, text=&#34;List of Participants&#34;, font=&#34;Lato 14&#34;,
+              justify=CENTER).pack(pady=20)
+        self.list_box_participants = Listbox(self.get_participants_from_meeting_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;,
+                                             fg=&#34;#bb99ff&#34;, yscrollcommand=scrollbar.set)
+        self.list_box_participants.pack(pady=15)
+
+        try:
+            all_persons = self.db.get_scheduler_by_meeting(meeting_id)
+            for person in all_persons:
+                self.list_box_participants.insert(END, person[0])
+        except Exception as error:
+            failure_window = Toplevel(self.display_meetings_window)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                       padx=20)
+
+    def add_person_window(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hide_main_page()
+
+            self.nume = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.nume.insert(0, &#39;Please enter your Last Name!&#39;)
+            self.nume.pack(pady=20)
+
+            self.prenume = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.prenume.insert(0, &#39;Please enter your First Name!&#39;)
+            self.prenume.pack(pady=20)
+
+            self.email = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.email.insert(0, &#39;Please enter your email adress!&#39;)
+            self.email.pack(pady=20)
+
+            self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_add_person)
+            self.save = Button(self.root, text=&#34;Save&#34;, style=&#39;W.TButton&#39;, command=self.save_person)
+            self.back.pack(side=&#34;left&#34;, expand=True)
+            self.save.pack(side=&#34;right&#34;, expand=True)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_add_person(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.email.pack_forget()
+            self.nume.pack_forget()
+            self.prenume.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def save_person(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;Person saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+            self.email.pack_forget()
+            self.nume.pack_forget()
+            self.prenume.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def schedule_meeting(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hide_main_page()
+
+            self.meeting_name = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+            self.meeting_name.insert(0, &#39;Please enter the name of the meeting!&#39;)
+            self.meeting_name.pack(pady=20)
+
+            self.select_day = Button(self.root, text=&#39;Select day&#39;, style=&#39;W.TButton&#39;, command=self.show_calendar)
+            self.select_day.pack(pady=10)
+            self.selected_day = None
+            self.meeting_day = None
+
+            self.select_time_start = Button(self.root, text=&#39;Select start time&#39;, style=&#39;W.TButton&#39;,
+                                            command=lambda: self.show_hour_picker(True))
+            self.select_time_start.pack(pady=10)
+            self.selected_time_start = None
+            self.hour_meeting_start = None
+            self.min_meeting_start = None
+
+            self.select_time_end = Button(self.root, text=&#39;Select end time&#39;, style=&#39;W.TButton&#39;,
+                                          command=lambda: self.show_hour_picker(False))
+            self.select_time_end.pack(pady=10)
+            self.selected_time_end = None
+            self.hour_meeting_end = None
+            self.min_meeting_end = None
+
+            self.select_participants = Button(self.root, text=&#39;Add participants&#39;, style=&#39;W.TButton&#39;,
+                                              command=lambda: self.add_participants())
+            self.select_participants.pack(pady=10)
+            self.list_participants = set()
+
+            self.see_participants = Button(self.root, text=&#39;See participants&#39;, style=&#39;W.TButton&#39;,
+                                           command=lambda: self.show_selected_participants())
+            self.see_participants.pack(pady=10)
+
+            self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_schedule_meeting)
+            self.save = Button(self.root, text=&#34;Save&#34;, style=&#39;W.TButton&#39;, command=self.save_schedule)
+            self.back.pack(side=&#34;left&#34;, expand=True)
+            self.save.pack(side=&#34;right&#34;, expand=True)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def add_participants(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.add_participants_window = Toplevel(self.root)
+            self.add_participants_window.geometry(&#34;400x700&#34;)
+            scrollbar = Scrollbar(self.add_participants_window)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            Label(self.add_participants_window, text=&#34;List of Participants&#34;, font=&#34;Lato 14&#34;, justify=CENTER).pack(
+                pady=20)
+            self.list_box = Listbox(self.add_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;, fg=&#34;#bb99ff&#34;,
+                                    yscrollcommand=scrollbar.set)
+            self.list_box.pack(pady=15)
+
+            self.display_participants_window = Toplevel(self.root)
+            self.display_participants_window.geometry(&#34;400x700&#34;)
+            scrollbar = Scrollbar(self.display_participants_window)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            Label(self.display_participants_window, text=&#34;Select the Participants&#34;, font=&#34;Lato 14&#34;,
+                  justify=CENTER).pack(pady=20)
+            self.list_box_select = Listbox(self.display_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;, fg=&#34;#bb99ff&#34;,
+                                           yscrollcommand=scrollbar.set)
+            self.list_box_select.pack(pady=15)
+
+            try:
+                all_persons = self.db.get_persons()
+                for person in all_persons:
+                    self.list_box_select.insert(END, person[1])
+            except Exception as error:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                           padx=20)
+
+            add_person = Button(self.display_participants_window, text=&#34;Add&#34;, style=&#39;W.TButton&#39;,
+                                command=lambda: self.select_participant(self.list_box_select.get(ACTIVE)))
+            add_person.pack(pady=10)
+            delete_person = Button(self.add_participants_window, text=&#34;Delete&#34;, style=&#39;W.TButton&#39;,
+                                   command=lambda: self.delete_participant())
+            delete_person.pack(pady=10)
+            save_list_participants = Button(self.add_participants_window, text=&#34;Save&#34;, style=&#39;W.TButton&#39;,
+                                            command=lambda: self.save_participants())
+            save_list_participants.pack(pady=10)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_selected_participants(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        self.display_selected_participants_window = Toplevel(self.root)
+        self.display_selected_participants_window.geometry(&#34;400x700&#34;)
+        scrollbar = Scrollbar(self.display_selected_participants_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.display_selected_participants_window, text=&#34;Selected Participants&#34;, font=&#34;Lato 14&#34;,
+              justify=CENTER).pack(pady=20)
+        self.list_box_display = Listbox(self.display_selected_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;,
+                                        fg=&#34;#bb99ff&#34;,
+                                        yscrollcommand=scrollbar.set)
+        self.list_box_display.pack(pady=15)
+
+        try:
+            all_persons = self.list_participants
+            for person in all_persons:
+                self.list_box_display.insert(END, person)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                       padx=20)
+
+    def select_participant(self, participant_name):
+        &#34;&#34;&#34;
+
+        :param participant_name:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.list_box.insert(END, participant_name)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def delete_participant(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.list_box.delete(ANCHOR)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def save_participants(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            list_participants = self.list_box.get(0, self.list_box.size() - 1)
+            # self.list_participants = [participant.split(&#34; &#34;) for participant in list_participants]
+            self.list_participants = set(list_participants)
+            # print(self.list_participants)
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;List of participants saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+            self.add_participants_window.withdraw()
+            self.display_participants_window.withdraw()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hide_schedule_meeting(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.meeting_name.pack_forget()
+            self.select_day.pack_forget()
+            self.select_time_start.pack_forget()
+            self.select_time_end.pack_forget()
+            self.select_participants.pack_forget()
+            self.see_participants.pack_forget()
+            if self.selected_day:
+                self.selected_day.pack_forget()
+            if self.selected_time_start:
+                self.selected_time_start.pack_forget()
+            if self.selected_time_end:
+                self.selected_time_end.pack_forget()
+            self.back.pack_forget()
+            self.save.pack_forget()
+            self.show_main_page()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def save_schedule(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end and self.list_participants:
+            try:
+                self.db.insert_meeting(self.meeting_name.get(), self.meeting_day,
+                                       self.hour_meeting_start + &#34;:&#34; + self.min_meeting_start,
+                                       self.hour_meeting_end + &#34;:&#34; + self.min_meeting_end,
+                                       self.list_participants)
+                success_window = Toplevel(self.root)
+                Label(success_window, text=&#34;Meeting saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                      justify=&#39;center&#39;).pack(pady=20, padx=20)
+                self.db.get_scheduler()
+                self.hide_schedule_meeting()
+            except Exception as error:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                           padx=20)
+        else:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=&#34;Error! Meeting wasn&#39;t saved beacause you haven&#39;t set all data!&#34;, font=&#34;Lato 14&#34;,
+                  foreground=&#39;red&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_calendar(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.calendar_window = Toplevel(self.root)
+
+            now = datetime.now()
+            year = int(now.strftime(&#34;%Y&#34;))
+            month = int(now.strftime(&#34;%m&#34;))
+            day = int(now.strftime(&#34;%d&#34;))
+            self.calendar = Calendar(self.calendar_window, font=&#34;Lato 12&#34;, selectmode=&#39;day&#39;, cursor=&#34;hand1&#34;, year=year,
+                                     month=month, day=day)
+            self.calendar.pack(fill=&#34;both&#34;, expand=True)
+            Button(self.calendar_window, text=&#34;OK&#34;, command=self.get_date).pack()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def get_date(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.meeting_day = self.calendar.selection_get()
+            if self.selected_day:
+                self.selected_day.pack_forget()
+            self.selected_day = Label(self.root, text=self.meeting_day, font=&#34;Lato 14&#34;)
+            self.selected_day.pack()
+            self.calendar_window.withdraw()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def show_hour_picker(self, is_start_hour):
+        &#34;&#34;&#34;
+
+        :param is_start_hour:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.hour_window = Toplevel(self.root)
+            self.hour_window.geometry(&#34;200x350&#34;)
+            Label(self.hour_window, text=&#34;Enter the hour(HH):&#34;, font=&#34;Lato 14&#34;).pack(pady=20)
+            self.hour = Entry(self.hour_window, width=&#39;10&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;), justify=CENTER)
+            self.hour.pack(pady=10)
+            Label(self.hour_window, text=&#34;Enter the minutes(MM):&#34;, font=&#34;Lato 14&#34;).pack(pady=20)
+            self.min = Entry(self.hour_window, width=&#39;10&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;), justify=CENTER)
+            self.min.pack(pady=10)
+
+            reg = self.root.register(self.hour_input)
+
+            self.hour.config(validate=&#34;key&#34;, validatecommand=(reg, &#39;%P&#39;))
+            self.min.config(validate=&#34;key&#34;, validatecommand=(reg, &#39;%P&#39;))
+
+            Button(self.hour_window, text=&#34;OK&#34;, command=lambda: self.get_hour(is_start_hour)).pack()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def hour_input(self, input):
+        &#34;&#34;&#34;
+
+        :param input:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            if input.isdigit():
+                return True
+            elif input is &#34;&#34;:
+                return True
+            else:
+                return False
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def get_hour(self, is_start_hour):
+        &#34;&#34;&#34;
+
+        :param is_start_hour:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            time_no_valid = Label(self.hour_window, text=&#34;The time you entered is not valid&#34;, font=&#34;Lato 12&#34;,
+                                  foreground=&#39;red&#39;, wraplength=&#39;150&#39;, justify=&#39;center&#39;)
+            hour = self.hour.get()
+            min = self.min.get()
+            if hour == &#39;&#39; or min == &#39;&#39; or len(hour) != 2 or len(min) != 2:
+                time_no_valid.pack(pady=20)
+            else:
+                hour = int(hour)
+                min = int(min)
+                self.validate_time(hour, min, is_start_hour, time_no_valid)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def validate_time(self, hour, min, is_start_hour, time_no_valid):
+        &#34;&#34;&#34;
+
+        :param hour:
+        :param min:
+        :param is_start_hour:
+        :param time_no_valid:
+        :return:
+        &#34;&#34;&#34;
+        try:
+            if 24 &gt; hour &gt;= 0 and 0 &lt;= min &lt; 60:
+                if is_start_hour:
+                    if self.selected_time_start:
+                        self.selected_time_start.pack_forget()
+                    if self.selected_time_end and (int(self.hour_meeting_end) &lt; hour or (
+                            int(self.hour_meeting_end) == hour and int(self.min_meeting_end) &lt; min)):
+                        time_no_valid.pack(pady=20)
+                    else:
+                        self.hour_meeting_start = self.hour.get()
+                        self.min_meeting_start = self.min.get()
+                        self.selected_time_start = Label(self.root,
+                                                         text=&#34;Start: &#34; + self.hour_meeting_start + &#39;:&#39; + self.min_meeting_start,
+                                                         font=&#34;Lato 14&#34;)
+                        self.selected_time_start.pack()
+                        self.hour_window.withdraw()
+                else:
+                    if self.selected_time_end:
+                        self.selected_time_end.pack_forget()
+                    if self.selected_time_start and (int(self.hour_meeting_start) &gt; hour or (
+                            int(self.hour_meeting_start) == hour and int(self.min_meeting_start) &gt; min)):
+                        time_no_valid.pack(pady=20)
+                    else:
+                        self.hour_meeting_end = self.hour.get()
+                        self.min_meeting_end = self.min.get()
+                        self.selected_time_end = Label(self.root,
+                                                       text=&#34;End: &#34; + self.hour_meeting_end + &#39;:&#39; + self.min_meeting_end,
+                                                       font=&#34;Lato 14&#34;)
+                        self.selected_time_end.pack()
+                        self.hour_window.withdraw()
+
+            else:
+                time_no_valid.pack(pady=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def callback(self):
+        print(1)
+
+    def exit(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            self.root.destroy()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)
+
+    def create_styles(self):
+        &#34;&#34;&#34;
+
+        :return:
+        &#34;&#34;&#34;
+        try:
+            style = Style()
+            style.configure(&#39;W.TButton&#39;, font=(&#39;Lato&#39;, 15, &#39;bold&#39;), background=&#39;#bb99ff&#39;, foreground=&#39;#bb99ff&#39;)
+            style.configure(&#39;W.TButton&#39;, padding=10, borderwidth=0)
+            style.configure(&#39;W.TLabel&#39;, font=(&#39;Lato&#39;, 20, &#39;bold&#39;), foreground=&#39;#bb99ff&#39;, wraplength=&#39;250&#39;,
+                            justify=&#39;center&#39;)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="meetingScheduler.app.App.add_participants"><code class="name flex">
+<span>def <span class="ident">add_participants</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_participants(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.add_participants_window = Toplevel(self.root)
+        self.add_participants_window.geometry(&#34;400x700&#34;)
+        scrollbar = Scrollbar(self.add_participants_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.add_participants_window, text=&#34;List of Participants&#34;, font=&#34;Lato 14&#34;, justify=CENTER).pack(
+            pady=20)
+        self.list_box = Listbox(self.add_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;, fg=&#34;#bb99ff&#34;,
+                                yscrollcommand=scrollbar.set)
+        self.list_box.pack(pady=15)
+
+        self.display_participants_window = Toplevel(self.root)
+        self.display_participants_window.geometry(&#34;400x700&#34;)
+        scrollbar = Scrollbar(self.display_participants_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.display_participants_window, text=&#34;Select the Participants&#34;, font=&#34;Lato 14&#34;,
+              justify=CENTER).pack(pady=20)
+        self.list_box_select = Listbox(self.display_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;, fg=&#34;#bb99ff&#34;,
+                                       yscrollcommand=scrollbar.set)
+        self.list_box_select.pack(pady=15)
+
+        try:
+            all_persons = self.db.get_persons()
+            for person in all_persons:
+                self.list_box_select.insert(END, person[1])
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                       padx=20)
+
+        add_person = Button(self.display_participants_window, text=&#34;Add&#34;, style=&#39;W.TButton&#39;,
+                            command=lambda: self.select_participant(self.list_box_select.get(ACTIVE)))
+        add_person.pack(pady=10)
+        delete_person = Button(self.add_participants_window, text=&#34;Delete&#34;, style=&#39;W.TButton&#39;,
+                               command=lambda: self.delete_participant())
+        delete_person.pack(pady=10)
+        save_list_participants = Button(self.add_participants_window, text=&#34;Save&#34;, style=&#39;W.TButton&#39;,
+                                        command=lambda: self.save_participants())
+        save_list_participants.pack(pady=10)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.add_person_window"><code class="name flex">
+<span>def <span class="ident">add_person_window</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_person_window(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.hide_main_page()
+
+        self.nume = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+        self.nume.insert(0, &#39;Please enter your Last Name!&#39;)
+        self.nume.pack(pady=20)
+
+        self.prenume = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+        self.prenume.insert(0, &#39;Please enter your First Name!&#39;)
+        self.prenume.pack(pady=20)
+
+        self.email = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+        self.email.insert(0, &#39;Please enter your email adress!&#39;)
+        self.email.pack(pady=20)
+
+        self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_add_person)
+        self.save = Button(self.root, text=&#34;Save&#34;, style=&#39;W.TButton&#39;, command=self.save_person)
+        self.back.pack(side=&#34;left&#34;, expand=True)
+        self.save.pack(side=&#34;right&#34;, expand=True)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.callback"><code class="name flex">
+<span>def <span class="ident">callback</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def callback(self):
+    print(1)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.create_styles"><code class="name flex">
+<span>def <span class="ident">create_styles</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_styles(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        style = Style()
+        style.configure(&#39;W.TButton&#39;, font=(&#39;Lato&#39;, 15, &#39;bold&#39;), background=&#39;#bb99ff&#39;, foreground=&#39;#bb99ff&#39;)
+        style.configure(&#39;W.TButton&#39;, padding=10, borderwidth=0)
+        style.configure(&#39;W.TLabel&#39;, font=(&#39;Lato&#39;, 20, &#39;bold&#39;), foreground=&#39;#bb99ff&#39;, wraplength=&#39;250&#39;,
+                        justify=&#39;center&#39;)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.delete_participant"><code class="name flex">
+<span>def <span class="ident">delete_participant</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete_participant(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.list_box.delete(ANCHOR)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.display_meetings"><code class="name flex">
+<span>def <span class="ident">display_meetings</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_meetings(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end:
+        try:
+            meetings = self.db.get_meetings_by_interval(self.meeting_day,
+                                                        self.hour_meeting_start + &#34;:&#34; + self.min_meeting_start,
+                                                        self.hour_meeting_end + &#34;:&#34; + self.min_meeting_end)
+            if len(meetings) != 0:
+                self.display_meetings_window = Toplevel(self.root)
+                self.display_meetings_window.geometry(&#34;1200x300&#34;)
+                for i in range(len(meetings)):
+                    entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                  justify=CENTER)
+                    entry.grid(row=i + 1, column=1, pady=1, padx=1)
+                    entry.insert(END, &#34;Name: &#34; + str(meetings[i][0]))
+                    entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                  justify=CENTER)
+                    entry.grid(row=i + 1, column=2, pady=1, padx=1)
+                    entry.insert(END, meetings[i][1])
+                    entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                  justify=CENTER)
+                    entry.grid(row=i + 1, column=3, pady=1, padx=1)
+                    entry.insert(END, &#34;Start time: &#34; + meetings[i][2].strftime(&#34;%H:%M:%S&#34;))
+                    entry = Entry(self.display_meetings_window, width=25, font=(&#39;Lato&#39;, 12, &#39;normal&#39;),
+                                  justify=CENTER)
+                    entry.grid(row=i + 1, column=4, pady=1, padx=1)
+                    entry.insert(END, &#34;End time: &#34; + meetings[i][3].strftime(&#34;%H:%M:%S&#34;))
+                    participants = Button(self.display_meetings_window, text=&#39;See participants&#39;, style=&#39;W.TButton&#39;,
+                                          command=lambda: self.get_participants_from_meeting(meetings[i][4]))
+                    participants.grid(row=i + 1, column=5, pady=1, padx=1)
+            else:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=&#34;No meetings in this interval&#34;, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;,
+                      justify=&#39;center&#39;).pack(pady=20, padx=20)
+        except Exception as error:
+            self.display_meetings_window.withdraw()
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                       padx=20)
+    else:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=&#34;Error! You haven&#39;t set all data!&#34;, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;,
+              justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.exit"><code class="name flex">
+<span>def <span class="ident">exit</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def exit(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.root.destroy()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.export_calendar_window"><code class="name flex">
+<span>def <span class="ident">export_calendar_window</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def export_calendar_window(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        c = ics.Calendar()
+        meetings = self.db.get_meetings()
+        for meeting in meetings:
+            e = ics.Event()
+            e.name = str(meeting[1])
+            e.begin = meeting[2].strftime(&#34;%Y-%m-%d&#34;) + &#34; &#34; + meeting[3].strftime(&#34;%H:%M&#34;)
+            e.end = meeting[2].strftime(&#34;%Y-%m-%d&#34;) + &#34; &#34; + meeting[4].strftime(&#34;%H:%M&#34;)
+            participants = self.db.get_scheduler_by_meeting(str(meeting[0]))
+            for participant in participants:
+                e.add_attendee(str(participant[0]))
+            c.events.add(e)
+        files = [(&#34;ics files&#34;, &#34;*.ics&#34;), (&#34;ical files&#34;, &#34;*.ical&#34;)]
+        file = filedialog.asksaveasfile(initialdir=&#34;/&#34;, title=&#34;Save a calendar file&#34;, filetypes=files,
+                                        defaultextension=files)
+        with open(file.name, &#39;w&#39;) as my_file:
+            my_file.writelines(c)
+        success_window = Toplevel(self.root)
+        Label(success_window, text=&#34;Calendar exported successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+              justify=&#39;center&#39;).pack(pady=20, padx=20)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.get_date"><code class="name flex">
+<span>def <span class="ident">get_date</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_date(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.meeting_day = self.calendar.selection_get()
+        if self.selected_day:
+            self.selected_day.pack_forget()
+        self.selected_day = Label(self.root, text=self.meeting_day, font=&#34;Lato 14&#34;)
+        self.selected_day.pack()
+        self.calendar_window.withdraw()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.get_hour"><code class="name flex">
+<span>def <span class="ident">get_hour</span></span>(<span>self, is_start_hour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param is_start_hour:
+:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_hour(self, is_start_hour):
+    &#34;&#34;&#34;
+
+    :param is_start_hour:
+    :return:
+    &#34;&#34;&#34;
+    try:
+        time_no_valid = Label(self.hour_window, text=&#34;The time you entered is not valid&#34;, font=&#34;Lato 12&#34;,
+                              foreground=&#39;red&#39;, wraplength=&#39;150&#39;, justify=&#39;center&#39;)
+        hour = self.hour.get()
+        min = self.min.get()
+        if hour == &#39;&#39; or min == &#39;&#39; or len(hour) != 2 or len(min) != 2:
+            time_no_valid.pack(pady=20)
+        else:
+            hour = int(hour)
+            min = int(min)
+            self.validate_time(hour, min, is_start_hour, time_no_valid)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.get_participants_from_meeting"><code class="name flex">
+<span>def <span class="ident">get_participants_from_meeting</span></span>(<span>self, meeting_id)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param meeting_id:
+:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_participants_from_meeting(self, meeting_id):
+    &#34;&#34;&#34;
+
+    :param meeting_id:
+    :return:
+    &#34;&#34;&#34;
+    self.get_participants_from_meeting_window = Toplevel(self.display_meetings_window)
+    self.get_participants_from_meeting_window.geometry(&#34;400x400&#34;)
+    scrollbar = Scrollbar(self.get_participants_from_meeting_window)
+    scrollbar.pack(side=RIGHT, fill=Y)
+    Label(self.get_participants_from_meeting_window, text=&#34;List of Participants&#34;, font=&#34;Lato 14&#34;,
+          justify=CENTER).pack(pady=20)
+    self.list_box_participants = Listbox(self.get_participants_from_meeting_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;,
+                                         fg=&#34;#bb99ff&#34;, yscrollcommand=scrollbar.set)
+    self.list_box_participants.pack(pady=15)
+
+    try:
+        all_persons = self.db.get_scheduler_by_meeting(meeting_id)
+        for person in all_persons:
+            self.list_box_participants.insert(END, person[0])
+    except Exception as error:
+        failure_window = Toplevel(self.display_meetings_window)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                   padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.hide_add_person"><code class="name flex">
+<span>def <span class="ident">hide_add_person</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hide_add_person(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.email.pack_forget()
+        self.nume.pack_forget()
+        self.prenume.pack_forget()
+        self.back.pack_forget()
+        self.save.pack_forget()
+        self.show_main_page()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.hide_main_page"><code class="name flex">
+<span>def <span class="ident">hide_main_page</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hide_main_page(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.add_person_button.pack_forget()
+        self.add_meeting_button.pack_forget()
+        self.show_meetings_button.pack_forget()
+        self.export_button.pack_forget()
+        self.import_button.pack_forget()
+        self.exit.pack_forget()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.hide_schedule_meeting"><code class="name flex">
+<span>def <span class="ident">hide_schedule_meeting</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hide_schedule_meeting(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.meeting_name.pack_forget()
+        self.select_day.pack_forget()
+        self.select_time_start.pack_forget()
+        self.select_time_end.pack_forget()
+        self.select_participants.pack_forget()
+        self.see_participants.pack_forget()
+        if self.selected_day:
+            self.selected_day.pack_forget()
+        if self.selected_time_start:
+            self.selected_time_start.pack_forget()
+        if self.selected_time_end:
+            self.selected_time_end.pack_forget()
+        self.back.pack_forget()
+        self.save.pack_forget()
+        self.show_main_page()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.hide_show_meetings"><code class="name flex">
+<span>def <span class="ident">hide_show_meetings</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hide_show_meetings(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.select_day.pack_forget()
+        self.select_time_start.pack_forget()
+        self.select_time_end.pack_forget()
+        if self.selected_day:
+            self.selected_day.pack_forget()
+        if self.selected_time_start:
+            self.selected_time_start.pack_forget()
+        if self.selected_time_end:
+            self.selected_time_end.pack_forget()
+        self.back.pack_forget()
+        self.save.pack_forget()
+        self.show_main_page()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.hour_input"><code class="name flex">
+<span>def <span class="ident">hour_input</span></span>(<span>self, input)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param input:
+:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hour_input(self, input):
+    &#34;&#34;&#34;
+
+    :param input:
+    :return:
+    &#34;&#34;&#34;
+    try:
+        if input.isdigit():
+            return True
+        elif input is &#34;&#34;:
+            return True
+        else:
+            return False
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.import_calendar_window"><code class="name flex">
+<span>def <span class="ident">import_calendar_window</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def import_calendar_window(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        files = [(&#34;ics files&#34;, &#34;*.ics&#34;), (&#34;ical files&#34;, &#34;*.ical&#34;)]
+        file = filedialog.askopenfilename(initialdir=&#34;/&#34;, title=&#34;Select a calendar file&#34;, filetypes=files)
+        with open(file, &#39;r&#39;) as my_file:
+            c = ics.Calendar(my_file.read())
+        events = c.events
+        for event in events:
+            name = event.name
+            day = event.begin.format(&#39;YYYY-MM-DD&#39;)
+            start = event.begin.format(&#39;HH:mm&#39;)
+            end = event.end.format(&#39;HH:mm&#39;)
+            attendees = []
+            for attendee in event.attendees:
+                attendees.append(attendee.common_name)
+            self.db.insert_meeting(name, day, start, end, attendees)
+        success_window = Toplevel(self.root)
+        Label(success_window, text=&#34;Calendar imported successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+              justify=&#39;center&#39;).pack(pady=20, padx=20)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.save_participants"><code class="name flex">
+<span>def <span class="ident">save_participants</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_participants(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        list_participants = self.list_box.get(0, self.list_box.size() - 1)
+        # self.list_participants = [participant.split(&#34; &#34;) for participant in list_participants]
+        self.list_participants = set(list_participants)
+        # print(self.list_participants)
+        success_window = Toplevel(self.root)
+        Label(success_window, text=&#34;List of participants saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+              justify=&#39;center&#39;).pack(pady=20, padx=20)
+        self.add_participants_window.withdraw()
+        self.display_participants_window.withdraw()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.save_person"><code class="name flex">
+<span>def <span class="ident">save_person</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_person(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
+        success_window = Toplevel(self.root)
+        Label(success_window, text=&#34;Person saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+              justify=&#39;center&#39;).pack(pady=20, padx=20)
+        self.email.pack_forget()
+        self.nume.pack_forget()
+        self.prenume.pack_forget()
+        self.back.pack_forget()
+        self.save.pack_forget()
+        self.show_main_page()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.save_schedule"><code class="name flex">
+<span>def <span class="ident">save_schedule</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_schedule(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end and self.list_participants:
+        try:
+            self.db.insert_meeting(self.meeting_name.get(), self.meeting_day,
+                                   self.hour_meeting_start + &#34;:&#34; + self.min_meeting_start,
+                                   self.hour_meeting_end + &#34;:&#34; + self.min_meeting_end,
+                                   self.list_participants)
+            success_window = Toplevel(self.root)
+            Label(success_window, text=&#34;Meeting saved successfully&#34;, font=&#34;Lato 14&#34;, foreground=&#39;green&#39;,
+                  justify=&#39;center&#39;).pack(pady=20, padx=20)
+            self.db.get_scheduler()
+            self.hide_schedule_meeting()
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                       padx=20)
+    else:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=&#34;Error! Meeting wasn&#39;t saved beacause you haven&#39;t set all data!&#34;, font=&#34;Lato 14&#34;,
+              foreground=&#39;red&#39;,
+              justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.schedule_meeting"><code class="name flex">
+<span>def <span class="ident">schedule_meeting</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def schedule_meeting(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.hide_main_page()
+
+        self.meeting_name = Entry(self.root, width=&#39;50&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;))
+        self.meeting_name.insert(0, &#39;Please enter the name of the meeting!&#39;)
+        self.meeting_name.pack(pady=20)
+
+        self.select_day = Button(self.root, text=&#39;Select day&#39;, style=&#39;W.TButton&#39;, command=self.show_calendar)
+        self.select_day.pack(pady=10)
+        self.selected_day = None
+        self.meeting_day = None
+
+        self.select_time_start = Button(self.root, text=&#39;Select start time&#39;, style=&#39;W.TButton&#39;,
+                                        command=lambda: self.show_hour_picker(True))
+        self.select_time_start.pack(pady=10)
+        self.selected_time_start = None
+        self.hour_meeting_start = None
+        self.min_meeting_start = None
+
+        self.select_time_end = Button(self.root, text=&#39;Select end time&#39;, style=&#39;W.TButton&#39;,
+                                      command=lambda: self.show_hour_picker(False))
+        self.select_time_end.pack(pady=10)
+        self.selected_time_end = None
+        self.hour_meeting_end = None
+        self.min_meeting_end = None
+
+        self.select_participants = Button(self.root, text=&#39;Add participants&#39;, style=&#39;W.TButton&#39;,
+                                          command=lambda: self.add_participants())
+        self.select_participants.pack(pady=10)
+        self.list_participants = set()
+
+        self.see_participants = Button(self.root, text=&#39;See participants&#39;, style=&#39;W.TButton&#39;,
+                                       command=lambda: self.show_selected_participants())
+        self.see_participants.pack(pady=10)
+
+        self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_schedule_meeting)
+        self.save = Button(self.root, text=&#34;Save&#34;, style=&#39;W.TButton&#39;, command=self.save_schedule)
+        self.back.pack(side=&#34;left&#34;, expand=True)
+        self.save.pack(side=&#34;right&#34;, expand=True)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.select_participant"><code class="name flex">
+<span>def <span class="ident">select_participant</span></span>(<span>self, participant_name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param participant_name:
+:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_participant(self, participant_name):
+    &#34;&#34;&#34;
+
+    :param participant_name:
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.list_box.insert(END, participant_name)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.show_calendar"><code class="name flex">
+<span>def <span class="ident">show_calendar</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_calendar(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.calendar_window = Toplevel(self.root)
+
+        now = datetime.now()
+        year = int(now.strftime(&#34;%Y&#34;))
+        month = int(now.strftime(&#34;%m&#34;))
+        day = int(now.strftime(&#34;%d&#34;))
+        self.calendar = Calendar(self.calendar_window, font=&#34;Lato 12&#34;, selectmode=&#39;day&#39;, cursor=&#34;hand1&#34;, year=year,
+                                 month=month, day=day)
+        self.calendar.pack(fill=&#34;both&#34;, expand=True)
+        Button(self.calendar_window, text=&#34;OK&#34;, command=self.get_date).pack()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.show_hour_picker"><code class="name flex">
+<span>def <span class="ident">show_hour_picker</span></span>(<span>self, is_start_hour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param is_start_hour:
+:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_hour_picker(self, is_start_hour):
+    &#34;&#34;&#34;
+
+    :param is_start_hour:
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.hour_window = Toplevel(self.root)
+        self.hour_window.geometry(&#34;200x350&#34;)
+        Label(self.hour_window, text=&#34;Enter the hour(HH):&#34;, font=&#34;Lato 14&#34;).pack(pady=20)
+        self.hour = Entry(self.hour_window, width=&#39;10&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;), justify=CENTER)
+        self.hour.pack(pady=10)
+        Label(self.hour_window, text=&#34;Enter the minutes(MM):&#34;, font=&#34;Lato 14&#34;).pack(pady=20)
+        self.min = Entry(self.hour_window, width=&#39;10&#39;, font=(&#39;Lato&#39;, 12, &#39;normal&#39;), justify=CENTER)
+        self.min.pack(pady=10)
+
+        reg = self.root.register(self.hour_input)
+
+        self.hour.config(validate=&#34;key&#34;, validatecommand=(reg, &#39;%P&#39;))
+        self.min.config(validate=&#34;key&#34;, validatecommand=(reg, &#39;%P&#39;))
+
+        Button(self.hour_window, text=&#34;OK&#34;, command=lambda: self.get_hour(is_start_hour)).pack()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.show_main_page"><code class="name flex">
+<span>def <span class="ident">show_main_page</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_main_page(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.add_person_button = Button(self.root, text=&#34;Add person&#34;, style=&#39;W.TButton&#39;,
+                                        command=self.add_person_window)
+        self.add_meeting_button = Button(self.root, text=&#34;Schedule meeting&#34;, style=&#39;W.TButton&#39;,
+                                         command=self.schedule_meeting)
+        self.show_meetings_button = Button(self.root, text=&#34;Display meetings&#34;, style=&#39;W.TButton&#39;,
+                                           command=self.show_meetings_window)
+        self.export_button = Button(self.root, text=&#34;Export calendar&#34;, style=&#39;W.TButton&#39;,
+                                    command=self.export_calendar_window)
+        self.import_button = Button(self.root, text=&#34;Import calendar&#34;, style=&#39;W.TButton&#39;,
+                                    command=self.import_calendar_window)
+        self.exit = Button(self.root, text=&#34;Exit&#34;, style=&#39;W.TButton&#39;, command=self.exit)
+
+        self.add_person_button.pack(pady=20)
+        self.add_meeting_button.pack(pady=20)
+        self.show_meetings_button.pack(pady=20)
+        self.export_button.pack(pady=20)
+        self.import_button.pack(pady=20)
+        self.exit.pack(pady=20)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.show_meetings_window"><code class="name flex">
+<span>def <span class="ident">show_meetings_window</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_meetings_window(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.hide_main_page()
+
+        self.select_day = Button(self.root, text=&#39;Select day&#39;, style=&#39;W.TButton&#39;, command=self.show_calendar)
+        self.select_day.pack(pady=10)
+        self.selected_day = None
+        self.meeting_day = None
+
+        self.select_time_start = Button(self.root, text=&#39;Select start time&#39;, style=&#39;W.TButton&#39;,
+                                        command=lambda: self.show_hour_picker(True))
+        self.select_time_start.pack(pady=10)
+        self.selected_time_start = None
+        self.hour_meeting_start = None
+        self.min_meeting_start = None
+
+        self.select_time_end = Button(self.root, text=&#39;Select end time&#39;, style=&#39;W.TButton&#39;,
+                                      command=lambda: self.show_hour_picker(False))
+        self.select_time_end.pack(pady=10)
+        self.selected_time_end = None
+        self.hour_meeting_end = None
+        self.min_meeting_end = None
+
+        self.back = Button(self.root, text=&#34;Back&#34;, style=&#39;W.TButton&#39;, command=self.hide_show_meetings)
+        self.save = Button(self.root, text=&#34;Display&#34;, style=&#39;W.TButton&#39;, command=self.display_meetings)
+        self.back.pack(side=&#34;left&#34;, expand=True)
+        self.save.pack(side=&#34;right&#34;, expand=True)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.show_selected_participants"><code class="name flex">
+<span>def <span class="ident">show_selected_participants</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_selected_participants(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    self.display_selected_participants_window = Toplevel(self.root)
+    self.display_selected_participants_window.geometry(&#34;400x700&#34;)
+    scrollbar = Scrollbar(self.display_selected_participants_window)
+    scrollbar.pack(side=RIGHT, fill=Y)
+    Label(self.display_selected_participants_window, text=&#34;Selected Participants&#34;, font=&#34;Lato 14&#34;,
+          justify=CENTER).pack(pady=20)
+    self.list_box_display = Listbox(self.display_selected_participants_window, width=&#34;100&#34;, font=&#34;Lato 14&#34;,
+                                    fg=&#34;#bb99ff&#34;,
+                                    yscrollcommand=scrollbar.set)
+    self.list_box_display.pack(pady=15)
+
+    try:
+        all_persons = self.list_participants
+        for person in all_persons:
+            self.list_box_display.insert(END, person)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20,
+                                                                                                   padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.start"><code class="name flex">
+<span>def <span class="ident">start</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start(self):
+    &#34;&#34;&#34;
+
+    :return:
+    &#34;&#34;&#34;
+    try:
+        self.root = Tk()
+        self.root.geometry(&#34;500x800&#34;)
+        self.root.title(self.name)
+
+        self.create_styles()
+
+        image = Image.open(&#34;bg.jpg&#34;)
+        image = image.resize((500, 800), Image.ANTIALIAS)
+        image = ImageTk.PhotoImage(image)
+        background_label = Label(self.root, image=image)
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        title = Label(self.root, text=self.name, style=&#39;W.TLabel&#39;)
+        title.pack(pady=50)
+        self.show_main_page()
+
+        self.root.mainloop()
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+<dt id="meetingScheduler.app.App.validate_time"><code class="name flex">
+<span>def <span class="ident">validate_time</span></span>(<span>self, hour, min, is_start_hour, time_no_valid)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param hour:
+:param min:
+:param is_start_hour:
+:param time_no_valid:
+:return:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_time(self, hour, min, is_start_hour, time_no_valid):
+    &#34;&#34;&#34;
+
+    :param hour:
+    :param min:
+    :param is_start_hour:
+    :param time_no_valid:
+    :return:
+    &#34;&#34;&#34;
+    try:
+        if 24 &gt; hour &gt;= 0 and 0 &lt;= min &lt; 60:
+            if is_start_hour:
+                if self.selected_time_start:
+                    self.selected_time_start.pack_forget()
+                if self.selected_time_end and (int(self.hour_meeting_end) &lt; hour or (
+                        int(self.hour_meeting_end) == hour and int(self.min_meeting_end) &lt; min)):
+                    time_no_valid.pack(pady=20)
+                else:
+                    self.hour_meeting_start = self.hour.get()
+                    self.min_meeting_start = self.min.get()
+                    self.selected_time_start = Label(self.root,
+                                                     text=&#34;Start: &#34; + self.hour_meeting_start + &#39;:&#39; + self.min_meeting_start,
+                                                     font=&#34;Lato 14&#34;)
+                    self.selected_time_start.pack()
+                    self.hour_window.withdraw()
+            else:
+                if self.selected_time_end:
+                    self.selected_time_end.pack_forget()
+                if self.selected_time_start and (int(self.hour_meeting_start) &gt; hour or (
+                        int(self.hour_meeting_start) == hour and int(self.min_meeting_start) &gt; min)):
+                    time_no_valid.pack(pady=20)
+                else:
+                    self.hour_meeting_end = self.hour.get()
+                    self.min_meeting_end = self.min.get()
+                    self.selected_time_end = Label(self.root,
+                                                   text=&#34;End: &#34; + self.hour_meeting_end + &#39;:&#39; + self.min_meeting_end,
+                                                   font=&#34;Lato 14&#34;)
+                    self.selected_time_end.pack()
+                    self.hour_window.withdraw()
+
+        else:
+            time_no_valid.pack(pady=20)
+    except Exception as error:
+        failure_window = Toplevel(self.root)
+        Label(failure_window, text=error, font=&#34;Lato 14&#34;, foreground=&#39;red&#39;, justify=&#39;center&#39;).pack(pady=20, padx=20)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="meetingScheduler" href="index.html">meetingScheduler</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="meetingScheduler.app.App" href="#meetingScheduler.app.App">App</a></code></h4>
+<ul class="">
+<li><code><a title="meetingScheduler.app.App.add_participants" href="#meetingScheduler.app.App.add_participants">add_participants</a></code></li>
+<li><code><a title="meetingScheduler.app.App.add_person_window" href="#meetingScheduler.app.App.add_person_window">add_person_window</a></code></li>
+<li><code><a title="meetingScheduler.app.App.callback" href="#meetingScheduler.app.App.callback">callback</a></code></li>
+<li><code><a title="meetingScheduler.app.App.create_styles" href="#meetingScheduler.app.App.create_styles">create_styles</a></code></li>
+<li><code><a title="meetingScheduler.app.App.delete_participant" href="#meetingScheduler.app.App.delete_participant">delete_participant</a></code></li>
+<li><code><a title="meetingScheduler.app.App.display_meetings" href="#meetingScheduler.app.App.display_meetings">display_meetings</a></code></li>
+<li><code><a title="meetingScheduler.app.App.exit" href="#meetingScheduler.app.App.exit">exit</a></code></li>
+<li><code><a title="meetingScheduler.app.App.export_calendar_window" href="#meetingScheduler.app.App.export_calendar_window">export_calendar_window</a></code></li>
+<li><code><a title="meetingScheduler.app.App.get_date" href="#meetingScheduler.app.App.get_date">get_date</a></code></li>
+<li><code><a title="meetingScheduler.app.App.get_hour" href="#meetingScheduler.app.App.get_hour">get_hour</a></code></li>
+<li><code><a title="meetingScheduler.app.App.get_participants_from_meeting" href="#meetingScheduler.app.App.get_participants_from_meeting">get_participants_from_meeting</a></code></li>
+<li><code><a title="meetingScheduler.app.App.hide_add_person" href="#meetingScheduler.app.App.hide_add_person">hide_add_person</a></code></li>
+<li><code><a title="meetingScheduler.app.App.hide_main_page" href="#meetingScheduler.app.App.hide_main_page">hide_main_page</a></code></li>
+<li><code><a title="meetingScheduler.app.App.hide_schedule_meeting" href="#meetingScheduler.app.App.hide_schedule_meeting">hide_schedule_meeting</a></code></li>
+<li><code><a title="meetingScheduler.app.App.hide_show_meetings" href="#meetingScheduler.app.App.hide_show_meetings">hide_show_meetings</a></code></li>
+<li><code><a title="meetingScheduler.app.App.hour_input" href="#meetingScheduler.app.App.hour_input">hour_input</a></code></li>
+<li><code><a title="meetingScheduler.app.App.import_calendar_window" href="#meetingScheduler.app.App.import_calendar_window">import_calendar_window</a></code></li>
+<li><code><a title="meetingScheduler.app.App.save_participants" href="#meetingScheduler.app.App.save_participants">save_participants</a></code></li>
+<li><code><a title="meetingScheduler.app.App.save_person" href="#meetingScheduler.app.App.save_person">save_person</a></code></li>
+<li><code><a title="meetingScheduler.app.App.save_schedule" href="#meetingScheduler.app.App.save_schedule">save_schedule</a></code></li>
+<li><code><a title="meetingScheduler.app.App.schedule_meeting" href="#meetingScheduler.app.App.schedule_meeting">schedule_meeting</a></code></li>
+<li><code><a title="meetingScheduler.app.App.select_participant" href="#meetingScheduler.app.App.select_participant">select_participant</a></code></li>
+<li><code><a title="meetingScheduler.app.App.show_calendar" href="#meetingScheduler.app.App.show_calendar">show_calendar</a></code></li>
+<li><code><a title="meetingScheduler.app.App.show_hour_picker" href="#meetingScheduler.app.App.show_hour_picker">show_hour_picker</a></code></li>
+<li><code><a title="meetingScheduler.app.App.show_main_page" href="#meetingScheduler.app.App.show_main_page">show_main_page</a></code></li>
+<li><code><a title="meetingScheduler.app.App.show_meetings_window" href="#meetingScheduler.app.App.show_meetings_window">show_meetings_window</a></code></li>
+<li><code><a title="meetingScheduler.app.App.show_selected_participants" href="#meetingScheduler.app.App.show_selected_participants">show_selected_participants</a></code></li>
+<li><code><a title="meetingScheduler.app.App.start" href="#meetingScheduler.app.App.start">start</a></code></li>
+<li><code><a title="meetingScheduler.app.App.validate_time" href="#meetingScheduler.app.App.validate_time">validate_time</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

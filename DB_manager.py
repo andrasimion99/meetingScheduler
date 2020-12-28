@@ -2,7 +2,13 @@ import psycopg2
 
 
 class DB_manager:
+    """
+
+    """
     def __init__(self):
+        """
+
+        """
         self.db = "test"
         self.user = "postgres"
         self.password = "1234"
@@ -10,6 +16,10 @@ class DB_manager:
         self.port = "4444"
 
     def connect(self):
+        """
+
+        :return:
+        """
         try:
             self.conn = psycopg2.connect(database=self.db, user=self.user, password=self.password, host=self.host,
                                          port=self.port)
@@ -18,6 +28,10 @@ class DB_manager:
             raise error
 
     def create_tables(self):
+        """
+
+        :return:
+        """
         """ create tables in the PostgreSQL database"""
         commands = ("""
                 CREATE TABLE persons (
@@ -65,6 +79,10 @@ class DB_manager:
             raise error
 
     def drop_tables(self):
+        """
+
+        :return:
+        """
         commands = ("""DROP TABLE persons CASCADE""",
                     """DROP TABLE meetings CASCADE""",
                     """DROP TABLE scheduler CASCADE""")
@@ -83,6 +101,13 @@ class DB_manager:
             raise error
 
     def insert_person(self, email, nume, prenume):
+        """
+
+        :param email:
+        :param nume:
+        :param prenume:
+        :return:
+        """
         """ insert a new person into the persons table """
 
         try:
@@ -101,6 +126,10 @@ class DB_manager:
             raise error
 
     def get_persons(self):
+        """
+
+        :return:
+        """
         """ get all persons from the persons table """
         try:
             cur = self.conn.cursor()
@@ -116,6 +145,11 @@ class DB_manager:
         return rows
 
     def get_person(self, person_email):
+        """
+
+        :param person_email:
+        :return:
+        """
         """ query person from the persons table by id"""
         sql = """SELECT * FROM persons WHERE person_email=%s"""
         try:
@@ -133,6 +167,15 @@ class DB_manager:
         return row
 
     def insert_meeting(self, name, day, start, end, participants):
+        """
+
+        :param name:
+        :param day:
+        :param start:
+        :param end:
+        :param participants:
+        :return:
+        """
         """ insert a new meeting into the meetings table """
         try:
             sql = """INSERT INTO meetings(meeting_name, meeting_day, meeting_start, meeting_end)
@@ -167,6 +210,10 @@ class DB_manager:
             raise error
 
     def get_meetings(self):
+        """
+
+        :return:
+        """
         """ get all meetings from the meetings table """
         try:
             cur = self.conn.cursor()
@@ -183,6 +230,10 @@ class DB_manager:
         return rows
 
     def get_scheduler(self):
+        """
+
+        :return:
+        """
         """get the schedules from the scheduler table """
         try:
             cur = self.conn.cursor()
@@ -200,6 +251,13 @@ class DB_manager:
             raise error
 
     def get_meetings_by_interval(self, day, start, end):
+        """
+
+        :param day:
+        :param start:
+        :param end:
+        :return:
+        """
         """get the meetings from the meetings table within an interval of time"""
         try:
             sql = """SELECT meeting_name, meeting_day, meeting_start, meeting_end, meeting_id FROM meetings WHERE meeting_day=%s 
@@ -218,6 +276,11 @@ class DB_manager:
         return rows
 
     def get_scheduler_by_meeting(self, meeting_id):
+        """
+
+        :param meeting_id:
+        :return:
+        """
         """get the schedules from the scheduler table by a meeting_id"""
         try:
             sql = """SELECT person_email FROM persons WHERE person_id IN (SELECT person_id FROM scheduler WHERE 

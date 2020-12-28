@@ -10,11 +10,21 @@ from datetime import datetime
 
 
 class App:
+    """
+    """
     def __init__(self, db):
+        """
+
+        :param db:
+        """
         self.name = "Meeting Scheduler"
         self.db = db
 
     def start(self):
+        """
+
+        :return:
+        """
         try:
             self.root = Tk()
             self.root.geometry("500x800")
@@ -37,6 +47,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def hide_main_page(self):
+        """
+
+        :return:
+        """
         try:
             self.add_person_button.pack_forget()
             self.add_meeting_button.pack_forget()
@@ -49,6 +63,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def show_main_page(self):
+        """
+
+        :return:
+        """
         try:
             self.add_person_button = Button(self.root, text="Add person", style='W.TButton',
                                             command=self.add_person_window)
@@ -73,6 +91,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def import_calendar_window(self):
+        """
+
+        :return:
+        """
         try:
             files = [("ics files", "*.ics"), ("ical files", "*.ical")]
             file = filedialog.askopenfilename(initialdir="/", title="Select a calendar file", filetypes=files)
@@ -96,6 +118,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def export_calendar_window(self):
+        """
+
+        :return:
+        """
         try:
             c = ics.Calendar()
             meetings = self.db.get_meetings()
@@ -121,6 +147,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def show_meetings_window(self):
+        """
+
+        :return:
+        """
         try:
             self.hide_main_page()
 
@@ -152,6 +182,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def hide_show_meetings(self):
+        """
+
+        :return:
+        """
         try:
             self.select_day.pack_forget()
             self.select_time_start.pack_forget()
@@ -170,6 +204,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def display_meetings(self):
+        """
+
+        :return:
+        """
         if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end:
             try:
                 meetings = self.db.get_meetings_by_interval(self.meeting_day,
@@ -213,6 +251,11 @@ class App:
                   justify='center').pack(pady=20, padx=20)
 
     def get_participants_from_meeting(self, meeting_id):
+        """
+
+        :param meeting_id:
+        :return:
+        """
         self.get_participants_from_meeting_window = Toplevel(self.display_meetings_window)
         self.get_participants_from_meeting_window.geometry("400x400")
         scrollbar = Scrollbar(self.get_participants_from_meeting_window)
@@ -233,6 +276,10 @@ class App:
                                                                                                        padx=20)
 
     def add_person_window(self):
+        """
+
+        :return:
+        """
         try:
             self.hide_main_page()
 
@@ -257,6 +304,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def hide_add_person(self):
+        """
+
+        :return:
+        """
         try:
             self.email.pack_forget()
             self.nume.pack_forget()
@@ -269,6 +320,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def save_person(self):
+        """
+
+        :return:
+        """
         try:
             self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
             success_window = Toplevel(self.root)
@@ -285,6 +340,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def schedule_meeting(self):
+        """
+
+        :return:
+        """
         try:
             self.hide_main_page()
 
@@ -329,6 +388,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def add_participants(self):
+        """
+
+        :return:
+        """
         try:
             self.add_participants_window = Toplevel(self.root)
             self.add_participants_window.geometry("400x700")
@@ -373,6 +436,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def show_selected_participants(self):
+        """
+
+        :return:
+        """
         self.display_selected_participants_window = Toplevel(self.root)
         self.display_selected_participants_window.geometry("400x700")
         scrollbar = Scrollbar(self.display_selected_participants_window)
@@ -394,6 +461,11 @@ class App:
                                                                                                        padx=20)
 
     def select_participant(self, participant_name):
+        """
+
+        :param participant_name:
+        :return:
+        """
         try:
             self.list_box.insert(END, participant_name)
         except Exception as error:
@@ -401,6 +473,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def delete_participant(self):
+        """
+
+        :return:
+        """
         try:
             self.list_box.delete(ANCHOR)
         except Exception as error:
@@ -408,6 +484,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def save_participants(self):
+        """
+
+        :return:
+        """
         try:
             list_participants = self.list_box.get(0, self.list_box.size() - 1)
             # self.list_participants = [participant.split(" ") for participant in list_participants]
@@ -423,6 +503,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def hide_schedule_meeting(self):
+        """
+
+        :return:
+        """
         try:
             self.meeting_name.pack_forget()
             self.select_day.pack_forget()
@@ -444,6 +528,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def save_schedule(self):
+        """
+
+        :return:
+        """
         if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end and self.list_participants:
             try:
                 self.db.insert_meeting(self.meeting_name.get(), self.meeting_day,
@@ -466,6 +554,10 @@ class App:
                   justify='center').pack(pady=20, padx=20)
 
     def show_calendar(self):
+        """
+
+        :return:
+        """
         try:
             self.calendar_window = Toplevel(self.root)
 
@@ -482,6 +574,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def get_date(self):
+        """
+
+        :return:
+        """
         try:
             self.meeting_day = self.calendar.selection_get()
             if self.selected_day:
@@ -494,6 +590,11 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def show_hour_picker(self, is_start_hour):
+        """
+
+        :param is_start_hour:
+        :return:
+        """
         try:
             self.hour_window = Toplevel(self.root)
             self.hour_window.geometry("200x350")
@@ -515,6 +616,11 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def hour_input(self, input):
+        """
+
+        :param input:
+        :return:
+        """
         try:
             if input.isdigit():
                 return True
@@ -527,6 +633,11 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def get_hour(self, is_start_hour):
+        """
+
+        :param is_start_hour:
+        :return:
+        """
         try:
             time_no_valid = Label(self.hour_window, text="The time you entered is not valid", font="Lato 12",
                                   foreground='red', wraplength='150', justify='center')
@@ -543,6 +654,14 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def validate_time(self, hour, min, is_start_hour, time_no_valid):
+        """
+
+        :param hour:
+        :param min:
+        :param is_start_hour:
+        :param time_no_valid:
+        :return:
+        """
         try:
             if 24 > hour >= 0 and 0 <= min < 60:
                 if is_start_hour:
@@ -584,6 +703,10 @@ class App:
         print(1)
 
     def exit(self):
+        """
+
+        :return:
+        """
         try:
             self.root.destroy()
         except Exception as error:
@@ -591,6 +714,10 @@ class App:
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def create_styles(self):
+        """
+
+        :return:
+        """
         try:
             style = Style()
             style.configure('W.TButton', font=('Lato', 15, 'bold'), background='#bb99ff', foreground='#bb99ff')
