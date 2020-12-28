@@ -12,6 +12,7 @@ from datetime import datetime
 class App:
     """
     """
+
     def __init__(self, db):
         """
 
@@ -698,9 +699,6 @@ class App:
         except Exception as error:
             failure_window = Toplevel(self.root)
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
-
-    def callback(self):
-        print(1)
 
     def exit(self):
         """
