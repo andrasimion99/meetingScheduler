@@ -74,20 +74,20 @@ class App:
 
     def import_calendar_window(self):
         try:
-            self.root.filename = filedialog.askopenfilename(initialdir="/", title="Select a calendar file",
-                                                            filetypes=(("ics files", "*.ics"), ("ics files", "*.ics")))
-            # print(self.root.filename)
-            with open(self.root.filename, 'r') as my_file:
+            files = [("ics files", "*.ics"), ("ical files", "*.ical")]
+            file = filedialog.askopenfilename(initialdir="/", title="Select a calendar file", filetypes=files)
+            with open(file, 'r') as my_file:
                 c = ics.Calendar(my_file.read())
             events = c.events
             for event in events:
+                name = event.name
                 day = event.begin.format('YYYY-MM-DD')
                 start = event.begin.format('HH:mm')
                 end = event.end.format('HH:mm')
                 attendees = []
                 for attendee in event.attendees:
                     attendees.append(attendee.common_name)
-                self.db.insert_meeting(day, start, end, attendees)
+                self.db.insert_meeting(name, day, start, end, attendees)
             success_window = Toplevel(self.root)
             Label(success_window, text="Calendar imported successfully", font="Lato 14", foreground='green',
                   justify='center').pack(pady=20, padx=20)
@@ -101,16 +101,17 @@ class App:
             meetings = self.db.get_meetings()
             for meeting in meetings:
                 e = ics.Event()
-                e.name = "Meeting " + str(meeting[0])
-                e.begin = meeting[1].strftime("%Y-%m-%d") + " " + meeting[2].strftime("%H:%M")
-                e.end = meeting[1].strftime("%Y-%m-%d") + " " + meeting[3].strftime("%H:%M")
+                e.name = str(meeting[1])
+                e.begin = meeting[2].strftime("%Y-%m-%d") + " " + meeting[3].strftime("%H:%M")
+                e.end = meeting[2].strftime("%Y-%m-%d") + " " + meeting[4].strftime("%H:%M")
                 participants = self.db.get_scheduler_by_meeting(str(meeting[0]))
                 for participant in participants:
-                    # row = self.db.get_person(str(participant[0]))
-                    # e.add_attendee(row[0] + " " + row[1])
                     e.add_attendee(str(participant[0]))
                 c.events.add(e)
-            with open('my_calendar.ics', 'w') as my_file:
+            files = [("ics files", "*.ics"), ("ical files", "*.ical")]
+            file = filedialog.asksaveasfile(initialdir="/", title="Save a calendar file", filetypes=files,
+                                            defaultextension=files)
+            with open(file.name, 'w') as my_file:
                 my_file.writelines(c)
             success_window = Toplevel(self.root)
             Label(success_window, text="Calendar exported successfully", font="Lato 14", foreground='green',
@@ -176,12 +177,12 @@ class App:
                                                             self.hour_meeting_end + ":" + self.min_meeting_end)
                 if len(meetings) != 0:
                     self.display_meetings_window = Toplevel(self.root)
-                    self.display_meetings_window.geometry("1000x300")
+                    self.display_meetings_window.geometry("1200x300")
                     for i in range(len(meetings)):
                         entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'),
                                       justify=CENTER)
                         entry.grid(row=i + 1, column=1, pady=1, padx=1)
-                        entry.insert(END, "Id: " + str(meetings[i][0]))
+                        entry.insert(END, "Name: " + str(meetings[i][0]))
                         entry = Entry(self.display_meetings_window, width=25, font=('Lato', 12, 'normal'),
                                       justify=CENTER)
                         entry.grid(row=i + 1, column=2, pady=1, padx=1)
@@ -194,6 +195,9 @@ class App:
                                       justify=CENTER)
                         entry.grid(row=i + 1, column=4, pady=1, padx=1)
                         entry.insert(END, "End time: " + meetings[i][3].strftime("%H:%M:%S"))
+                        participants = Button(self.display_meetings_window, text='See participants', style='W.TButton',
+                                              command=lambda: self.get_participants_from_meeting(meetings[i][4]))
+                        participants.grid(row=i + 1, column=5, pady=1, padx=1)
                 else:
                     failure_window = Toplevel(self.root)
                     Label(failure_window, text="No meetings in this interval", font="Lato 14", foreground='red',
@@ -208,6 +212,26 @@ class App:
             Label(failure_window, text="Error! You haven't set all data!", font="Lato 14", foreground='red',
                   justify='center').pack(pady=20, padx=20)
 
+    def get_participants_from_meeting(self, meeting_id):
+        self.get_participants_from_meeting_window = Toplevel(self.display_meetings_window)
+        self.get_participants_from_meeting_window.geometry("400x400")
+        scrollbar = Scrollbar(self.get_participants_from_meeting_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.get_participants_from_meeting_window, text="List of Participants", font="Lato 14",
+              justify=CENTER).pack(pady=20)
+        self.list_box_participants = Listbox(self.get_participants_from_meeting_window, width="100", font="Lato 14",
+                                             fg="#bb99ff", yscrollcommand=scrollbar.set)
+        self.list_box_participants.pack(pady=15)
+
+        try:
+            all_persons = self.db.get_scheduler_by_meeting(meeting_id)
+            for person in all_persons:
+                self.list_box_participants.insert(END, person[0])
+        except Exception as error:
+            failure_window = Toplevel(self.display_meetings_window)
+            Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20,
+                                                                                                       padx=20)
+
     def add_person_window(self):
         try:
             self.hide_main_page()
@@ -220,6 +244,10 @@ class App:
             self.prenume.insert(0, 'Please enter your First Name!')
             self.prenume.pack(pady=20)
 
+            self.email = Entry(self.root, width='50', font=('Lato', 12, 'normal'))
+            self.email.insert(0, 'Please enter your email adress!')
+            self.email.pack(pady=20)
+
             self.back = Button(self.root, text="Back", style='W.TButton', command=self.hide_add_person)
             self.save = Button(self.root, text="Save", style='W.TButton', command=self.save_person)
             self.back.pack(side="left", expand=True)
@@ -230,6 +258,7 @@ class App:
 
     def hide_add_person(self):
         try:
+            self.email.pack_forget()
             self.nume.pack_forget()
             self.prenume.pack_forget()
             self.back.pack_forget()
@@ -241,10 +270,11 @@ class App:
 
     def save_person(self):
         try:
-            self.db.insert_person(self.nume.get(), self.prenume.get())
+            self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
             success_window = Toplevel(self.root)
             Label(success_window, text="Person saved successfully", font="Lato 14", foreground='green',
                   justify='center').pack(pady=20, padx=20)
+            self.email.pack_forget()
             self.nume.pack_forget()
             self.prenume.pack_forget()
             self.back.pack_forget()
@@ -257,6 +287,10 @@ class App:
     def schedule_meeting(self):
         try:
             self.hide_main_page()
+
+            self.meeting_name = Entry(self.root, width='50', font=('Lato', 12, 'normal'))
+            self.meeting_name.insert(0, 'Please enter the name of the meeting!')
+            self.meeting_name.pack(pady=20)
 
             self.select_day = Button(self.root, text='Select day', style='W.TButton', command=self.show_calendar)
             self.select_day.pack(pady=10)
@@ -280,8 +314,11 @@ class App:
             self.select_participants = Button(self.root, text='Add participants', style='W.TButton',
                                               command=lambda: self.add_participants())
             self.select_participants.pack(pady=10)
-            self.list_participants = None
-            self.selected_participants = None
+            self.list_participants = set()
+
+            self.see_participants = Button(self.root, text='See participants', style='W.TButton',
+                                           command=lambda: self.show_selected_participants())
+            self.see_participants.pack(pady=10)
 
             self.back = Button(self.root, text="Back", style='W.TButton', command=self.hide_schedule_meeting)
             self.save = Button(self.root, text="Save", style='W.TButton', command=self.save_schedule)
@@ -303,16 +340,27 @@ class App:
                                     yscrollcommand=scrollbar.set)
             self.list_box.pack(pady=15)
 
-            Label(self.add_participants_window, text="Id participant:", font="Lato 14", justify=CENTER).pack(pady=10)
-            participant = Entry(self.add_participants_window, width='35', font=('Lato', 12, 'normal'), justify=CENTER)
-            participant.pack(pady=20)
+            self.display_participants_window = Toplevel(self.root)
+            self.display_participants_window.geometry("400x700")
+            scrollbar = Scrollbar(self.display_participants_window)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            Label(self.display_participants_window, text="Select the Participants", font="Lato 14",
+                  justify=CENTER).pack(pady=20)
+            self.list_box_select = Listbox(self.display_participants_window, width="100", font="Lato 14", fg="#bb99ff",
+                                           yscrollcommand=scrollbar.set)
+            self.list_box_select.pack(pady=15)
 
-            reg = self.root.register(self.hour_input)
+            try:
+                all_persons = self.db.get_persons()
+                for person in all_persons:
+                    self.list_box_select.insert(END, person[1])
+            except Exception as error:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20,
+                                                                                                           padx=20)
 
-            participant.config(validate="key", validatecommand=(reg, '%P'))
-
-            add_person = Button(self.add_participants_window, text="Add", style='W.TButton',
-                                command=lambda: self.select_participant(participant.get()))
+            add_person = Button(self.display_participants_window, text="Add", style='W.TButton',
+                                command=lambda: self.select_participant(self.list_box_select.get(ACTIVE)))
             add_person.pack(pady=10)
             delete_person = Button(self.add_participants_window, text="Delete", style='W.TButton',
                                    command=lambda: self.delete_participant())
@@ -323,6 +371,27 @@ class App:
         except Exception as error:
             failure_window = Toplevel(self.root)
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
+
+    def show_selected_participants(self):
+        self.display_selected_participants_window = Toplevel(self.root)
+        self.display_selected_participants_window.geometry("400x700")
+        scrollbar = Scrollbar(self.display_selected_participants_window)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        Label(self.display_selected_participants_window, text="Selected Participants", font="Lato 14",
+              justify=CENTER).pack(pady=20)
+        self.list_box_display = Listbox(self.display_selected_participants_window, width="100", font="Lato 14",
+                                        fg="#bb99ff",
+                                        yscrollcommand=scrollbar.set)
+        self.list_box_display.pack(pady=15)
+
+        try:
+            all_persons = self.list_participants
+            for person in all_persons:
+                self.list_box_display.insert(END, person)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20,
+                                                                                                       padx=20)
 
     def select_participant(self, participant_name):
         try:
@@ -343,30 +412,30 @@ class App:
             list_participants = self.list_box.get(0, self.list_box.size() - 1)
             # self.list_participants = [participant.split(" ") for participant in list_participants]
             self.list_participants = set(list_participants)
-            if self.selected_participants:
-                self.selected_participants.pack_forget()
-            self.selected_participants = Label(self.root, text="Participants: " + ','.join(self.list_participants),
-                                               font="Lato 14")
-            self.selected_participants.pack()
+            # print(self.list_participants)
+            success_window = Toplevel(self.root)
+            Label(success_window, text="List of participants saved successfully", font="Lato 14", foreground='green',
+                  justify='center').pack(pady=20, padx=20)
             self.add_participants_window.withdraw()
+            self.display_participants_window.withdraw()
         except Exception as error:
             failure_window = Toplevel(self.root)
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
 
     def hide_schedule_meeting(self):
         try:
+            self.meeting_name.pack_forget()
             self.select_day.pack_forget()
             self.select_time_start.pack_forget()
             self.select_time_end.pack_forget()
             self.select_participants.pack_forget()
+            self.see_participants.pack_forget()
             if self.selected_day:
                 self.selected_day.pack_forget()
             if self.selected_time_start:
                 self.selected_time_start.pack_forget()
             if self.selected_time_end:
                 self.selected_time_end.pack_forget()
-            if self.selected_participants:
-                self.selected_participants.pack_forget()
             self.back.pack_forget()
             self.save.pack_forget()
             self.show_main_page()
@@ -377,7 +446,8 @@ class App:
     def save_schedule(self):
         if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end and self.list_participants:
             try:
-                self.db.insert_meeting(self.meeting_day, self.hour_meeting_start + ":" + self.min_meeting_start,
+                self.db.insert_meeting(self.meeting_name.get(), self.meeting_day,
+                                       self.hour_meeting_start + ":" + self.min_meeting_start,
                                        self.hour_meeting_end + ":" + self.min_meeting_end,
                                        self.list_participants)
                 success_window = Toplevel(self.root)

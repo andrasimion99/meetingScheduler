@@ -22,6 +22,7 @@ class DB_manager:
         commands = ("""
                 CREATE TABLE persons (
                     person_id SERIAL PRIMARY KEY,
+                    person_email VARCHAR(255) NOT NULL UNIQUE,
                     person_nume VARCHAR(255) NOT NULL,
                     person_prenume VARCHAR(255) NOT NULL
                 )
@@ -29,6 +30,7 @@ class DB_manager:
                     """
                  CREATE TABLE meetings (
                      meeting_id SERIAL PRIMARY KEY,
+                     meeting_name VARCHAR(255) NOT NULL,
                      meeting_day DATE NOT NULL,
                      meeting_start TIME NOT NULL,
                      meeting_end TIME NOT NULL
@@ -56,63 +58,112 @@ class DB_manager:
             self.conn.commit()
             print("Tables created")
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
 
-    def insert_person(self, nume, prenume):
-        """ insert a new person into the persons table """
+    def drop_tables(self):
+        commands = ("""DROP TABLE persons CASCADE""",
+                    """DROP TABLE meetings CASCADE""",
+                    """DROP TABLE scheduler CASCADE""")
         try:
-            sql = """INSERT INTO persons(person_nume, person_prenume)
-                                 VALUES(%s,%s) RETURNING person_id;"""
             cur = self.conn.cursor()
-            cur.execute(sql, (nume, prenume,))
+            for command in commands:
+                cur.execute(command)
+            cur.close()
+            self.conn.commit()
+            print("Tables dropped")
+        except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
+            raise error
+
+    def insert_person(self, email, nume, prenume):
+        """ insert a new person into the persons table """
+
+        try:
+            sql = """INSERT INTO persons(person_email, person_nume, person_prenume)
+                                                     VALUES(%s,%s,%s) RETURNING person_id;"""
+            cur = self.conn.cursor()
+            cur.execute(sql, (email, nume, prenume,))
             self.conn.commit()
             print("Person added with id: " + str(cur.fetchone()[0]))
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
 
     def get_persons(self):
         """ get all persons from the persons table """
         try:
             cur = self.conn.cursor()
-            cur.execute("SELECT person_id, person_nume, person_prenume FROM persons ORDER BY person_id")
-            row = cur.fetchone()
-            while row is not None:
-                print(row)
-                row = cur.fetchone()
+            cur.execute("SELECT * FROM persons ORDER BY person_id")
+            rows = cur.fetchall()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
+        return rows
 
-    def get_person(self, person_id):
+    def get_person(self, person_email):
         """ query person from the persons table by id"""
+        sql = """SELECT * FROM persons WHERE person_email=%s"""
         try:
             cur = self.conn.cursor()
-            cur.execute("SELECT person_nume, person_prenume FROM persons WHERE person_id = %s", person_id)
+            cur.execute(sql, (person_email,))
             row = cur.fetchone()
             print(row)
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
         return row
 
-    def insert_meeting(self, day, start, end, participants):
+    def insert_meeting(self, name, day, start, end, participants):
         """ insert a new meeting into the meetings table """
         try:
-            sql = """INSERT INTO meetings(meeting_day, meeting_start, meeting_end)
-                                 VALUES(%s,%s,%s) RETURNING meeting_id;"""
+            sql = """INSERT INTO meetings(meeting_name, meeting_day, meeting_start, meeting_end)
+                                 VALUES(%s,%s,%s,%s) RETURNING meeting_id;"""
             cur = self.conn.cursor()
-            cur.execute(sql, (day, start, end,))
+            cur.execute(sql, (name, day, start, end,))
             meeting_id = cur.fetchone()[0]
             self.conn.commit()
-            for participant in participants:
-                sql_schedule = """INSERT INTO scheduler(meeting_id, person_id)
-                                 VALUES(%s,%s);"""
-                cur.execute(sql_schedule, (meeting_id, participant))
+            if len(participants) != 0:
+                sql_participants = """SELECT person_id FROM persons WHERE person_email IN ("""
+                tuple_participants = tuple(participants)
+                for _ in participants:
+                    sql_participants += '%s,'
+                sql_participants = sql_participants[:-1]
+                sql_participants += ');'
+                cur.execute(sql_participants, tuple_participants)
+                participants_id = cur.fetchall()
+                print(participants_id)
                 self.conn.commit()
+                for participant in participants_id:
+                    sql_schedule = """INSERT INTO scheduler(meeting_id, person_id)
+                                     VALUES(%s,%s);"""
+                    cur.execute(sql_schedule, (meeting_id, participant[0]))
+                    self.conn.commit()
             print("Meeting added successfully with id: " + str(meeting_id))
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
 
     def get_meetings(self):
@@ -120,10 +171,14 @@ class DB_manager:
         try:
             cur = self.conn.cursor()
             cur.execute(
-                "SELECT meeting_id, meeting_day, meeting_start, meeting_end FROM meetings ORDER BY meeting_start")
+                "SELECT * FROM meetings ORDER BY meeting_start")
             rows = cur.fetchall()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
         return rows
 
@@ -138,45 +193,63 @@ class DB_manager:
                 row = cur.fetchone()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
 
     def get_meetings_by_interval(self, day, start, end):
         """get the meetings from the meetings table within an interval of time"""
         try:
-            sql = """SELECT meeting_id, meeting_day, meeting_start, meeting_end FROM meetings WHERE meeting_day=%s 
+            sql = """SELECT meeting_name, meeting_day, meeting_start, meeting_end, meeting_id FROM meetings WHERE meeting_day=%s 
             AND meeting_start >= %s AND meeting_end <= %s; """
             cur = self.conn.cursor()
             cur.execute(sql, (day, start, end,))
             rows = cur.fetchall()
-            print(rows)
+            # print(rows)
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
         return rows
 
     def get_scheduler_by_meeting(self, meeting_id):
         """get the schedules from the scheduler table by a meeting_id"""
         try:
-            sql = """SELECT person_id FROM scheduler WHERE meeting_id = %s;"""
+            sql = """SELECT person_email FROM persons WHERE person_id IN (SELECT person_id FROM scheduler WHERE 
+            meeting_id = %s); """
             cur = self.conn.cursor()
             cur.execute(sql, (meeting_id,))
             rows = cur.fetchall()
-            print(rows)
+            # print(rows)
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
+            cur = self.conn.cursor()
+            cur.execute("""rollback;""")
+            self.conn.commit()
+            cur.close()
             raise error
         return rows
 
 
-#
 # try:
 #     db = DB_manager()
 #     db.connect()
-    # db.get_person('1')
-    # db.insert_meeting('2020-12-06', '11:00', '14:10', ['1', '2', '3'])
-    # db.get_meetings()
-    # db.get_scheduler()
-    #     db.get_meetings_by_interval('2020-12-06', '10:00', '17:00')
-#     db.get_scheduler_by_meeting('12')
+#     # db.drop_tables()
+#     # db.create_tables()
+#     # db.insert_person("anrebeca@gmail.com", "Ana", "Rebeca")
+#     # db.insert_person("anarebeca@gmail.com", "Ana", "Rebeca")
+#     # db.get_person('anrebeca@gmail.com')
+#     # db.get_persons()
+#     # db.insert_meeting('Facultate', '2020-12-07', '10:00', '15:10', {'isim@yahoo.com', 'anrebeca@gmail.com'})
+#     # print(db.get_meetings())
+#     # db.get_scheduler()
+#     # db.get_scheduler_by_meeting('3')
+# #     db.get_meetings_by_interval('2020-12-06', '10:00', '17:00')
+# #     db.get_scheduler_by_meeting('12')
 # except Exception as error:
 #     print(error)

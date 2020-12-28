@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:ics.py - http://git.io/lLljaA
+BEGIN:VEVENT
+ATTENDEE;CN=resim@yahoo.com:mailto:resim@yahoo.com
+ATTENDEE;CN=ivo@gmail.com:mailto:ivo@gmail.com
+DTEND:20201221T114000Z
+DTSTART:20201221T100000Z
+SUMMARY:Retele Neuronale
+UID:1f28b410-9558-43ac-93ba-ebd14d9f35bc@1f28.org
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN=resim@yahoo.com:mailto:resim@yahoo.com
+ATTENDEE;CN=ansimion@gmail.com:mailto:ansimion@gmail.com
+DTEND:20201209T141200Z
+DTSTART:20201209T122300Z
+SUMMARY:Java Class
+UID:12b85fa5-d1ad-43a7-922a-8ac4e758c532@12b8.org
+END:VEVENT
+BEGIN:VEVENT
+DTEND:20201223T114000Z
+DTSTART:20201223T100000Z
+SUMMARY:Python Class
+UID:1df7f62d-ae4a-4761-bb80-0d73289cb0d0@1df7.org
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN=resim@yahoo.com:mailto:resim@yahoo.com
+ATTENDEE;CN=ansimion@gmail.com:mailto:ansimion@gmail.com
+DTEND:20201221T231100Z
+DTSTART:20201221T100000Z
+SUMMARY:Java
+UID:530042bb-7925-4f70-b706-d804a1f4b0ec@5300.org
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN=resim@yahoo.com:mailto:resim@yahoo.com
+ATTENDEE;CN=ansimion@gmail.com:mailto:ansimion@gmail.com
+DTEND:20201221T232300Z
+DTSTART:20201221T090900Z
+SUMMARY:Python
+UID:c7bb7d17-f08d-47ae-8676-6dfcce5a31a3@c7bb.org
+END:VEVENT
+END:VCALENDAR
