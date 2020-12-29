@@ -7,6 +7,7 @@ from tkcalendar import Calendar
 import ics
 import DB_manager
 from datetime import datetime
+import re
 
 
 class App:
@@ -354,21 +355,46 @@ class App:
     def save_person(self):
         """
         The method takes the input form the user and adds a person to the database, displaying the main page afterwards.
+        The validation of the email is done before adding the data in the db.
 
         :return: creates a success window if the person is added to the database and displays the main page
                  or creates a window with an exception if encountered
         """
         try:
-            self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
-            success_window = Toplevel(self.root)
-            Label(success_window, text="Person saved successfully", font="Lato 14", foreground='green',
-                  justify='center').pack(pady=20, padx=20)
-            self.email.pack_forget()
-            self.nume.pack_forget()
-            self.prenume.pack_forget()
-            self.back.pack_forget()
-            self.save.pack_forget()
-            self.show_main_page()
+            if self.check_email(self.email.get()):
+                self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
+                success_window = Toplevel(self.root)
+                Label(success_window, text="Person saved successfully", font="Lato 14", foreground='green',
+                      justify='center').pack(pady=20, padx=20)
+                self.email.pack_forget()
+                self.nume.pack_forget()
+                self.prenume.pack_forget()
+                self.back.pack_forget()
+                self.save.pack_forget()
+                self.show_main_page()
+            else:
+                failure_window = Toplevel(self.root)
+                Label(failure_window, text="Invalid email", font="Lato 14", foreground='red', justify='center').pack(
+                    pady=20,
+                    padx=20)
+        except Exception as error:
+            failure_window = Toplevel(self.root)
+            Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
+
+    def check_email(self, email):
+        """
+        The method checks if an email is valid.
+
+        :param email: the email to be checked
+
+        :return: validates an email and creates a window with an exception if encountered
+        """
+        try:
+            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+            if re.search(regex, email):
+                return True
+            else:
+                return False
         except Exception as error:
             failure_window = Toplevel(self.root)
             Label(failure_window, text=error, font="Lato 14", foreground='red', justify='center').pack(pady=20, padx=20)
