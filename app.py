@@ -11,20 +11,24 @@ from datetime import datetime
 
 class App:
     """
+    The class manages the GUI application.
     """
 
     def __init__(self, db):
         """
+        Initialize the database to which we make requests and the name of the app which will appear on the windows
 
-        :param db:
+        :param db: represents the database for our application
         """
         self.name = "Meeting Scheduler"
         self.db = db
 
     def start(self):
         """
+        The method starts the application creating the main window with the background
+        and the title of the application
 
-        :return:
+        :return: displays the created window and creates a window with an exception if encountered
         """
         try:
             self.root = Tk()
@@ -49,8 +53,9 @@ class App:
 
     def hide_main_page(self):
         """
+        The method hides the main page when we navigate to an option.
 
-        :return:
+        :return: hides the buttons form the main page and creates a window with an exception if encountered
         """
         try:
             self.add_person_button.pack_forget()
@@ -65,8 +70,11 @@ class App:
 
     def show_main_page(self):
         """
+        The method displays all the buttons form the main page when we want to return to the main page.
+        The buttons: add a person, add a meeting to the database, display only some meetings
+        and import/export calendars with meetings
 
-        :return:
+        :return: displays the main page and creates a window with an exception if encountered
         """
         try:
             self.add_person_button = Button(self.root, text="Add person", style='W.TButton',
@@ -93,8 +101,12 @@ class App:
 
     def import_calendar_window(self):
         """
+        The method opens a dialog file from which the user chooses an .ical or .ics file to import into the database.
+        The information imported are: the name and the date of the meeting including the start and end hours
+        and the participants of the meeting only if they are already in the database
 
-        :return:
+        :return: a success window if the calendar got imported into the database
+                 and creates a window with an exception if encountered
         """
         try:
             files = [("ics files", "*.ics"), ("ical files", "*.ical")]
@@ -120,8 +132,13 @@ class App:
 
     def export_calendar_window(self):
         """
+        The method opens a dialog file from which the user chooses an .ical or .ics file to export
+        all the meetings from the database.
+        The exported information are: the name and the date of the meetings including the start and end hours
+        and the emails of the participants of the meetings.
 
-        :return:
+        :return: a success window if the calendar got exported from the database
+                 and creates a window with an exception if encountered
         """
         try:
             c = ics.Calendar()
@@ -149,8 +166,10 @@ class App:
 
     def show_meetings_window(self):
         """
+        The method display a window where you can set a time interval from which you want to see all the meetings
 
-        :return:
+        :return: displays the window with its buttons for setting the interval
+                 and creates a window with an exception if encountered
         """
         try:
             self.hide_main_page()
@@ -184,8 +203,10 @@ class App:
 
     def hide_show_meetings(self):
         """
+        The method hides all the buttons for the display meetings windows and displays the ones from the main page
 
-        :return:
+        :return: displays the main page and hides the show meetings pages
+                 and creates a window with an exception if encountered
         """
         try:
             self.select_day.pack_forget()
@@ -206,8 +227,12 @@ class App:
 
     def display_meetings(self):
         """
+        The method created a new window where all the meetings from a set interval are displayed in a tabel
+        with a meeting on each row, each meeting having the name, the day, start and end hour displayed
+        as well as a button where you cna see the participants for that meeting.
 
-        :return:
+        :return: creates a window for displaying the meetings information from an interval of time
+                 and creates a window with an exception if encountered
         """
         if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end:
             try:
@@ -253,9 +278,11 @@ class App:
 
     def get_participants_from_meeting(self, meeting_id):
         """
+        The method creates a new window where the participants' emails from a meeting are displayed.
 
-        :param meeting_id:
-        :return:
+        :param meeting_id: represents the meeting for which we want to see the persons
+
+        :return: creates a window where participants are displayed and creates a window with an exception if encountered
         """
         self.get_participants_from_meeting_window = Toplevel(self.display_meetings_window)
         self.get_participants_from_meeting_window.geometry("400x400")
@@ -278,8 +305,11 @@ class App:
 
     def add_person_window(self):
         """
+        The method displays a window where you cna add a person to the database.
+        Three entries are displayed where the user should introduce the first and last name of the person
+        as well as the person's email.
 
-        :return:
+        :return: displays a window for adding new persons and creates a window with an exception if encountered
         """
         try:
             self.hide_main_page()
@@ -306,8 +336,9 @@ class App:
 
     def hide_add_person(self):
         """
+        The method hides the window for adding new persons to the database and displays the main page.
 
-        :return:
+        :return: displays the main page, hides the actual window and creates a window with an exception if encountered
         """
         try:
             self.email.pack_forget()
@@ -322,8 +353,10 @@ class App:
 
     def save_person(self):
         """
+        The method takes the input form the user and adds a person to the database, displaying the main page afterwards.
 
-        :return:
+        :return: creates a success window if the person is added to the database and displays the main page
+                 or creates a window with an exception if encountered
         """
         try:
             self.db.insert_person(self.email.get(), self.nume.get(), self.prenume.get())
@@ -342,8 +375,12 @@ class App:
 
     def schedule_meeting(self):
         """
+        The method displays a window where a new meeting can be scheduled and added into the database.
+        The new meeting should have a name, the day when it's happening along with its start and end hour
+        as well as the participants for the meeting.
 
-        :return:
+        :return: displays all the buttons for adding a new meeting into the database
+                 and creates a window with an exception if encountered
         """
         try:
             self.hide_main_page()
@@ -390,8 +427,12 @@ class App:
 
     def add_participants(self):
         """
+        The method creates two new windows: one in which all the persons from the database are displayed
+        and from which you can select who you want to attend the meeting and the other window where
+        you see all the participants you have added and can edit the list if necessary.
 
-        :return:
+        :return: creates 2 windows for managing the participants for a meeting
+                 and creates a window with an exception if encountered
         """
         try:
             self.add_participants_window = Toplevel(self.root)
@@ -438,8 +479,11 @@ class App:
 
     def show_selected_participants(self):
         """
+        The method creates a new window where you can check the participants for the meeting you want to add
+        before you save it.
 
-        :return:
+        :return: creates a window for displaying the participants of a new meeting
+                 and creates a window with an exception if encountered
         """
         self.display_selected_participants_window = Toplevel(self.root)
         self.display_selected_participants_window.geometry("400x700")
@@ -463,9 +507,12 @@ class App:
 
     def select_participant(self, participant_name):
         """
+        The method lets the user select a participant from a window and add him to the list of persons
+        for the new meeting.
 
-        :param participant_name:
-        :return:
+        :param participant_name: the participant we want to add in the meeting
+
+        :return: adds participants to the meeting or creates a window with an exception if encountered
         """
         try:
             self.list_box.insert(END, participant_name)
@@ -475,8 +522,9 @@ class App:
 
     def delete_participant(self):
         """
+        The method lets the user modify the list he has made for the meeting by deleting mistaken persons.
 
-        :return:
+        :return: deletes a person from the list of participants or creates a window with an exception if encountered
         """
         try:
             self.list_box.delete(ANCHOR)
@@ -486,14 +534,14 @@ class App:
 
     def save_participants(self):
         """
+        The method saves the final list of participants for a meeting,
+        choosing a person only once if there are duplicates.
 
-        :return:
+        :return: creates the list of participants or creates a window with an exception if encountered
         """
         try:
             list_participants = self.list_box.get(0, self.list_box.size() - 1)
-            # self.list_participants = [participant.split(" ") for participant in list_participants]
             self.list_participants = set(list_participants)
-            # print(self.list_participants)
             success_window = Toplevel(self.root)
             Label(success_window, text="List of participants saved successfully", font="Lato 14", foreground='green',
                   justify='center').pack(pady=20, padx=20)
@@ -505,8 +553,9 @@ class App:
 
     def hide_schedule_meeting(self):
         """
+        The method hides the window for scheduling a meeting a displays the main page.
 
-        :return:
+        :return: displays the main page and creates a window with an exception if encountered
         """
         try:
             self.meeting_name.pack_forget()
@@ -530,8 +579,11 @@ class App:
 
     def save_schedule(self):
         """
+        The method saves the meeting into the database with all the information we have completed,
+        displaying the main page afterwards.
 
-        :return:
+        :return: creates a success window if the meeting is added into the database
+                 or creates a window with an exception if encountered
         """
         if self.meeting_day and self.hour_meeting_start and self.min_meeting_start and self.hour_meeting_end and self.min_meeting_end and self.list_participants:
             try:
@@ -556,8 +608,9 @@ class App:
 
     def show_calendar(self):
         """
+        The method creates a new window with a calendar from which the user can choose the day for the meeting.
 
-        :return:
+        :return: creates a calendar window and creates a window with an exception if encountered
         """
         try:
             self.calendar_window = Toplevel(self.root)
@@ -576,8 +629,9 @@ class App:
 
     def get_date(self):
         """
+        The method selects and saves the day for a meeting, closing the respective window.
 
-        :return:
+        :return: selects the day for a meeting and creates a window with an exception if encountered
         """
         try:
             self.meeting_day = self.calendar.selection_get()
@@ -592,9 +646,11 @@ class App:
 
     def show_hour_picker(self, is_start_hour):
         """
+        The method displays a new window where the user can write the start hour or end hour for the meeting.
 
-        :param is_start_hour:
-        :return:
+        :param is_start_hour: representing if the user chooses the start or end hour for the meeting
+
+        :return: creates a new window for picking a hour and creates a window with an exception if encountered
         """
         try:
             self.hour_window = Toplevel(self.root)
@@ -618,9 +674,12 @@ class App:
 
     def hour_input(self, input):
         """
+        The method validates the input of the user when choose an hour.
+        This way the user can only give as input digits.
 
-        :param input:
-        :return:
+        :param input: represents the input of the user for the hour
+
+        :return: validates the user's input and creates a window with an exception if encountered
         """
         try:
             if input.isdigit():
@@ -635,9 +694,11 @@ class App:
 
     def get_hour(self, is_start_hour):
         """
+        The method saves the input for the hour the user chose.
 
-        :param is_start_hour:
-        :return:
+        :param is_start_hour: represents if the user gave an input for the start or end hour
+
+        :return: saves the start and end hours and creates a window with an exception if encountered
         """
         try:
             time_no_valid = Label(self.hour_window, text="The time you entered is not valid", font="Lato 12",
@@ -656,12 +717,18 @@ class App:
 
     def validate_time(self, hour, min, is_start_hour, time_no_valid):
         """
+        The method validates the numbers the user introduced so that they correspond to a valid hour and minutes
+        and so that the ending hour is always after the start hour.
 
-        :param hour:
-        :param min:
-        :param is_start_hour:
-        :param time_no_valid:
-        :return:
+        :param hour: represents the hour the user chose
+
+        :param min: represents the minutes the user chose
+
+        :param is_start_hour: represents whether the user chose the start or end hour
+
+        :param time_no_valid: represents a label with a warning that the time is not valid
+
+        :return: validates the time for user's input and creates a window with an exception if encountered
         """
         try:
             if 24 > hour >= 0 and 0 <= min < 60:
@@ -702,8 +769,9 @@ class App:
 
     def exit(self):
         """
+        The method ends the application.
 
-        :return:
+        :return: end the app and creates a window with an exception if encountered
         """
         try:
             self.root.destroy()
@@ -713,8 +781,9 @@ class App:
 
     def create_styles(self):
         """
+        The method creates some styles for the buttons so that we can reuse it.
 
-        :return:
+        :return: creates styled buttons and creates a window with an exception if encountered
         """
         try:
             style = Style()
@@ -728,6 +797,11 @@ class App:
 
 
 if __name__ == '__main__':
+    """
+    The main function where the app is created and the connection to the database is established.
+    
+    :return: creates a window with an exception if encountered
+    """
     try:
         db = DB_manager.DB_manager()
         db.connect()

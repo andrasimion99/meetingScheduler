@@ -20,6 +20,7 @@ class DB_manager:
     def connect(self):
         """
         The method creates a connection to the DB_manager's database
+
         :return: raises an exception if encountered
         """
         try:
@@ -113,8 +114,11 @@ class DB_manager:
         The method inserts a new person into the persons table with an auto generated id.
 
         :param email: the email of the person which gets inserted
+
         :param nume: the first name of the person which gets inserted
+
         :param prenume: the last name of the person which gets inserted
+
         :return: raises an exception if encountered and executes a rollback
         """
 
@@ -157,6 +161,7 @@ class DB_manager:
         The method query a person from the persons table by his unique email
 
         :param person_email: the email of the person we want to get
+
         :return: the information about the queried person or raises an exception if encountered and executes a rollback
         """
         sql = """SELECT * FROM persons WHERE person_email=%s"""
@@ -180,10 +185,15 @@ class DB_manager:
         The participants will be added only if they are already in the persons table.
 
         :param name: represents the name of the meeting
+
         :param day: represents the day the meeting is happening
+
         :param start: represents the start hour of the meeting
+
         :param end: represents the end hour of the meeting
+
         :param participants: represents an array with all the emails of the persons who attend the meeting
+
         :return: raises an exception if encountered and executes a rollback
         """
 
@@ -268,8 +278,11 @@ class DB_manager:
         The method gets the meetings from the meetings table within an interval of time.
 
         :param day: the day from which we are searching the meeting
+
         :param start: the start hour of the earliest meeting representing the min part of the interval
+
         :param end: the end hour of the latest meeting representing the max part of the interval
+
         :return: all fetched rows with all the fields or raises an exception if encountered and executes a rollback
         """
 
@@ -294,6 +307,7 @@ class DB_manager:
         We use this when we want to see all the participants from a meeting.
 
         :param meeting_id: the meeting which we are search for
+
         :return: a list of email addresses of the participants of the meeting
                  or raises an exception if encountered and executes a rollback
         """

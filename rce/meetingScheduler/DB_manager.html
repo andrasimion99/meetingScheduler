@@ -48,6 +48,7 @@ class DB_manager:
     def connect(self):
         &#34;&#34;&#34;
         The method creates a connection to the DB_manager&#39;s database
+
         :return: raises an exception if encountered
         &#34;&#34;&#34;
         try:
@@ -141,8 +142,11 @@ class DB_manager:
         The method inserts a new person into the persons table with an auto generated id.
 
         :param email: the email of the person which gets inserted
+
         :param nume: the first name of the person which gets inserted
+
         :param prenume: the last name of the person which gets inserted
+
         :return: raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
 
@@ -185,6 +189,7 @@ class DB_manager:
         The method query a person from the persons table by his unique email
 
         :param person_email: the email of the person we want to get
+
         :return: the information about the queried person or raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
         sql = &#34;&#34;&#34;SELECT * FROM persons WHERE person_email=%s&#34;&#34;&#34;
@@ -208,10 +213,15 @@ class DB_manager:
         The participants will be added only if they are already in the persons table.
 
         :param name: represents the name of the meeting
+
         :param day: represents the day the meeting is happening
+
         :param start: represents the start hour of the meeting
+
         :param end: represents the end hour of the meeting
+
         :param participants: represents an array with all the emails of the persons who attend the meeting
+
         :return: raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
 
@@ -296,8 +306,11 @@ class DB_manager:
         The method gets the meetings from the meetings table within an interval of time.
 
         :param day: the day from which we are searching the meeting
+
         :param start: the start hour of the earliest meeting representing the min part of the interval
+
         :param end: the end hour of the latest meeting representing the max part of the interval
+
         :return: all fetched rows with all the fields or raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
 
@@ -322,6 +335,7 @@ class DB_manager:
         We use this when we want to see all the participants from a meeting.
 
         :param meeting_id: the meeting which we are search for
+
         :return: a list of email addresses of the participants of the meeting
                  or raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
@@ -399,6 +413,7 @@ the user and password for authentication and the server's host and port</p></div
     def connect(self):
         &#34;&#34;&#34;
         The method creates a connection to the DB_manager&#39;s database
+
         :return: raises an exception if encountered
         &#34;&#34;&#34;
         try:
@@ -492,8 +507,11 @@ the user and password for authentication and the server's host and port</p></div
         The method inserts a new person into the persons table with an auto generated id.
 
         :param email: the email of the person which gets inserted
+
         :param nume: the first name of the person which gets inserted
+
         :param prenume: the last name of the person which gets inserted
+
         :return: raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
 
@@ -536,6 +554,7 @@ the user and password for authentication and the server's host and port</p></div
         The method query a person from the persons table by his unique email
 
         :param person_email: the email of the person we want to get
+
         :return: the information about the queried person or raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
         sql = &#34;&#34;&#34;SELECT * FROM persons WHERE person_email=%s&#34;&#34;&#34;
@@ -559,10 +578,15 @@ the user and password for authentication and the server's host and port</p></div
         The participants will be added only if they are already in the persons table.
 
         :param name: represents the name of the meeting
+
         :param day: represents the day the meeting is happening
+
         :param start: represents the start hour of the meeting
+
         :param end: represents the end hour of the meeting
+
         :param participants: represents an array with all the emails of the persons who attend the meeting
+
         :return: raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
 
@@ -647,8 +671,11 @@ the user and password for authentication and the server's host and port</p></div
         The method gets the meetings from the meetings table within an interval of time.
 
         :param day: the day from which we are searching the meeting
+
         :param start: the start hour of the earliest meeting representing the min part of the interval
+
         :param end: the end hour of the latest meeting representing the max part of the interval
+
         :return: all fetched rows with all the fields or raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
 
@@ -673,6 +700,7 @@ the user and password for authentication and the server's host and port</p></div
         We use this when we want to see all the participants from a meeting.
 
         :param meeting_id: the meeting which we are search for
+
         :return: a list of email addresses of the participants of the meeting
                  or raises an exception if encountered and executes a rollback
         &#34;&#34;&#34;
@@ -698,8 +726,8 @@ the user and password for authentication and the server's host and port</p></div
 <span>def <span class="ident">connect</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The method creates a connection to the DB_manager's database
-:return: raises an exception if encountered</p></div>
+<div class="desc"><p>The method creates a connection to the DB_manager's database</p>
+<p>:return: raises an exception if encountered</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -707,6 +735,7 @@ the user and password for authentication and the server's host and port</p></div
 <pre><code class="python">def connect(self):
     &#34;&#34;&#34;
     The method creates a connection to the DB_manager&#39;s database
+
     :return: raises an exception if encountered
     &#34;&#34;&#34;
     try:
@@ -859,10 +888,10 @@ The scheduler table with meeting_id(FK), person_id(FK) and the tuple (meeting_id
 </code></dt>
 <dd>
 <div class="desc"><p>The method gets the meetings from the meetings table within an interval of time.</p>
-<p>:param day: the day from which we are searching the meeting
-:param start: the start hour of the earliest meeting representing the min part of the interval
-:param end: the end hour of the latest meeting representing the max part of the interval
-:return: all fetched rows with all the fields or raises an exception if encountered and executes a rollback</p></div>
+<p>:param day: the day from which we are searching the meeting</p>
+<p>:param start: the start hour of the earliest meeting representing the min part of the interval</p>
+<p>:param end: the end hour of the latest meeting representing the max part of the interval</p>
+<p>:return: all fetched rows with all the fields or raises an exception if encountered and executes a rollback</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -872,8 +901,11 @@ The scheduler table with meeting_id(FK), person_id(FK) and the tuple (meeting_id
     The method gets the meetings from the meetings table within an interval of time.
 
     :param day: the day from which we are searching the meeting
+
     :param start: the start hour of the earliest meeting representing the min part of the interval
+
     :param end: the end hour of the latest meeting representing the max part of the interval
+
     :return: all fetched rows with all the fields or raises an exception if encountered and executes a rollback
     &#34;&#34;&#34;
 
@@ -898,8 +930,8 @@ The scheduler table with meeting_id(FK), person_id(FK) and the tuple (meeting_id
 </code></dt>
 <dd>
 <div class="desc"><p>The method query a person from the persons table by his unique email</p>
-<p>:param person_email: the email of the person we want to get
-:return: the information about the queried person or raises an exception if encountered and executes a rollback</p></div>
+<p>:param person_email: the email of the person we want to get</p>
+<p>:return: the information about the queried person or raises an exception if encountered and executes a rollback</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -909,6 +941,7 @@ The scheduler table with meeting_id(FK), person_id(FK) and the tuple (meeting_id
     The method query a person from the persons table by his unique email
 
     :param person_email: the email of the person we want to get
+
     :return: the information about the queried person or raises an exception if encountered and executes a rollback
     &#34;&#34;&#34;
     sql = &#34;&#34;&#34;SELECT * FROM persons WHERE person_email=%s&#34;&#34;&#34;
@@ -998,8 +1031,8 @@ A schedule is formed of a meeting_id and a person_id attending to the meeting.</
 <dd>
 <div class="desc"><p>The method gets the schedules from the scheduler table by a given meeting_id.
 We use this when we want to see all the participants from a meeting.</p>
-<p>:param meeting_id: the meeting which we are search for
-:return: a list of email addresses of the participants of the meeting
+<p>:param meeting_id: the meeting which we are search for</p>
+<p>:return: a list of email addresses of the participants of the meeting
 or raises an exception if encountered and executes a rollback</p></div>
 <details class="source">
 <summary>
@@ -1011,6 +1044,7 @@ or raises an exception if encountered and executes a rollback</p></div>
     We use this when we want to see all the participants from a meeting.
 
     :param meeting_id: the meeting which we are search for
+
     :return: a list of email addresses of the participants of the meeting
              or raises an exception if encountered and executes a rollback
     &#34;&#34;&#34;
@@ -1037,12 +1071,12 @@ or raises an exception if encountered and executes a rollback</p></div>
 <dd>
 <div class="desc"><p>The method inserts a new meeting into the meetings table along with its participants in the scheduler table.
 The participants will be added only if they are already in the persons table.</p>
-<p>:param name: represents the name of the meeting
-:param day: represents the day the meeting is happening
-:param start: represents the start hour of the meeting
-:param end: represents the end hour of the meeting
-:param participants: represents an array with all the emails of the persons who attend the meeting
-:return: raises an exception if encountered and executes a rollback</p></div>
+<p>:param name: represents the name of the meeting</p>
+<p>:param day: represents the day the meeting is happening</p>
+<p>:param start: represents the start hour of the meeting</p>
+<p>:param end: represents the end hour of the meeting</p>
+<p>:param participants: represents an array with all the emails of the persons who attend the meeting</p>
+<p>:return: raises an exception if encountered and executes a rollback</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1053,10 +1087,15 @@ The participants will be added only if they are already in the persons table.</p
     The participants will be added only if they are already in the persons table.
 
     :param name: represents the name of the meeting
+
     :param day: represents the day the meeting is happening
+
     :param start: represents the start hour of the meeting
+
     :param end: represents the end hour of the meeting
+
     :param participants: represents an array with all the emails of the persons who attend the meeting
+
     :return: raises an exception if encountered and executes a rollback
     &#34;&#34;&#34;
 
@@ -1098,10 +1137,10 @@ The participants will be added only if they are already in the persons table.</p
 </code></dt>
 <dd>
 <div class="desc"><p>The method inserts a new person into the persons table with an auto generated id.</p>
-<p>:param email: the email of the person which gets inserted
-:param nume: the first name of the person which gets inserted
-:param prenume: the last name of the person which gets inserted
-:return: raises an exception if encountered and executes a rollback</p></div>
+<p>:param email: the email of the person which gets inserted</p>
+<p>:param nume: the first name of the person which gets inserted</p>
+<p>:param prenume: the last name of the person which gets inserted</p>
+<p>:return: raises an exception if encountered and executes a rollback</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1111,8 +1150,11 @@ The participants will be added only if they are already in the persons table.</p
     The method inserts a new person into the persons table with an auto generated id.
 
     :param email: the email of the person which gets inserted
+
     :param nume: the first name of the person which gets inserted
+
     :param prenume: the last name of the person which gets inserted
+
     :return: raises an exception if encountered and executes a rollback
     &#34;&#34;&#34;
 
